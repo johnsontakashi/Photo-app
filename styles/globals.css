@@ -147,6 +147,11 @@ body {
   justify-content: space-between;
 }
 
+.admin-section-2 {
+  display: flex;
+  justify-content: space-between;
+}
+
 .category-title {
   color: white;
 }

@@ -194,7 +194,7 @@ const AdminPhotosPage: React.FC = () => {
             </div>
 
             {/* System Status */}
-            <div className="grid md:grid-cols-3 gap-xl mb-4xl">
+            <div className="admin-section-2 grid md:grid-cols-3 gap-xl mb-4xl">
               <div className="card slide-up" style={{ animationDelay: '0.2s' }}>
                 <h3 className="heading-5 text-primary mb-lg">System Status</h3>
                 <div className="space-y-md">
