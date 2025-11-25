@@ -134,11 +134,11 @@ const AdminPhotosPage: React.FC = () => {
         </header>
 
         {/* Main Content */}
-        <main className="page-main">
+        <main className="page-main admin-page-main">
           <div className="container">
             {/* Stats Dashboard */}
             <div className="admin-section-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl mb-4xl fade-in">
-              <div className="card text-center">
+              <div className="card-1 card text-center">
                 <div className="flex items-center justify-between mb-lg">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
@@ -152,7 +152,7 @@ const AdminPhotosPage: React.FC = () => {
                 <div className="text-body text-secondary">Total Photos</div>
               </div>
 
-              <div className="card text-center">
+              <div className="card-1 card text-center">
                 <div className="flex items-center justify-between mb-lg">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
@@ -165,7 +165,7 @@ const AdminPhotosPage: React.FC = () => {
                 <div className="text-body text-secondary">Pending</div>
               </div>
 
-              <div className="card text-center">
+              <div className="card-1 card text-center">
                 <div className="flex items-center justify-between mb-lg">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
@@ -179,7 +179,7 @@ const AdminPhotosPage: React.FC = () => {
                 <div className="text-body text-secondary">Processing</div>
               </div>
 
-              <div className="card text-center">
+              <div className="card-1 card text-center">
                 <div className="flex items-center justify-between mb-lg">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
@@ -202,21 +202,21 @@ const AdminPhotosPage: React.FC = () => {
                     <span className="text-secondary">Upload API</span>
                     <div className="flex items-center gap-sm">
                       <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                      <span className="text-emerald-300 text-small">Online</span>
+                      <span className="status text-emerald-300 text-small">Online</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-secondary">Photo Storage</span>
                     <div className="flex items-center gap-sm">
                       <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                      <span className="text-emerald-300 text-small">Healthy</span>
+                      <span className="status text-emerald-300 text-small">Healthy</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-secondary">AI Processing</span>
                     <div className="flex items-center gap-sm">
                       <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                      <span className="text-red-300 text-small">Phase 2</span>
+                      <span className="status text-red-300 text-small">Phase 2</span>
                     </div>
                   </div>
                 </div>
@@ -224,7 +224,7 @@ const AdminPhotosPage: React.FC = () => {
 
               <div className="card slide-up" style={{ animationDelay: '0.4s' }}>
                 <h3 className="heading-5 text-primary mb-lg">Quick Actions</h3>
-                <div className="space-y-md">
+                <div className="space-y-md quick-action">
                   <button className="btn btn-primary btn-sm w-full">
                     📊 Download Report
                   </button>
@@ -289,7 +289,7 @@ const AdminPhotosPage: React.FC = () => {
             )}
 
             {/* Phase 1 Info Banner */}
-            <div className="card-alert alert-info fade-in mb-xl">
+            {/* <div className="card-alert alert-info fade-in mb-xl">
               <div className="flex items-start gap-md">
                 <div className="w-8 h-8 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full flex items-center justify-center flex-shrink-0 mt-xs">
                   <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
@@ -308,7 +308,7 @@ const AdminPhotosPage: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Photos Table */}
             <div className="slide-up" style={{ animationDelay: '0.8s' }}>

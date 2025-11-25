@@ -142,14 +142,28 @@ body {
   padding-bottom: 0px;
 }
 
+.admin-page-main {
+  flex: 1;
+  padding: var(--space-3xl) 0;
+  padding-top: 10px;
+}
+
 .admin-section-1 {
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
+  width: 100%;
+  margin: 50px 0;
+}
+
+.card-1 {
+  width: 25%;
 }
 
 .admin-section-2 {
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
+  margin: 50px 0;
+  margin-bottom: 130px;
 }
 
 .category-title {
@@ -452,6 +466,14 @@ body {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.badge {
+  color: white;
+}
+
+.status {
+  color: rgb(37, 236, 19);
 }
 
 .status-pending {
