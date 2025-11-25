@@ -41,7 +41,8 @@ const CustomerUploadPage: React.FC = () => {
                     alt="PhotoAI Pro - AI-Powered Photo Processing" 
                     width="180" 
                     height="54" 
-                    style={{ height: 'auto' }}
+                    style={{ height: 'auto', maxWidth: '140px' }}
+                    className="responsive-logo"
                   />
                 </div>
               </div>
@@ -54,7 +55,8 @@ const CustomerUploadPage: React.FC = () => {
                   <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
                   </svg>
-                  Admin Dashboard
+                  <span className="hide-mobile">Admin Dashboard</span>
+                  <span className="show-mobile">Admin</span>
                 </button>
               </div>
             </nav>

@@ -85,7 +85,7 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
     <div className="space-y-xl">
       {/* Search and Filters */}
       <div className="card slide-up">
-        <div className="flex flex-col md:flex-row gap-lg items-start md:items-center justify-between">
+        <div className="flex flex-col gap-lg items-start justify-between">
           <div className="flex-1 max-w-md">
             <label className="block text-primary font-semibold mb-sm">Search Photos</label>
             <div className="relative">
@@ -108,13 +108,13 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
             </div>
           </div>
           
-          <div className="flex gap-md">
-            <div>
+          <div className="flex flex-col sm:flex-row gap-md w-full">
+            <div className="flex-1">
               <label className="block text-primary font-semibold mb-sm">Filter by Status</label>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="input min-w-[140px]"
+                className="input w-full"
               >
                 <option value="all">All Status</option>
                 <option value="pending">Pending</option>
@@ -129,7 +129,7 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
                   setSearchValue('');
                   setStatusFilter('all');
                 }}
-                className="btn btn-outline btn-sm"
+                className="btn btn-outline btn-sm w-full sm:w-auto"
               >
                 Clear Filters
               </button>
@@ -157,9 +157,9 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
             className="card cursor-pointer transition-all hover:scale-[1.02] bounce-in group"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="flex items-center gap-xl">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-md sm:gap-xl">
               {/* Photo Thumbnail */}
-              <div className="w-20 h-20 flex-shrink-0">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0">
                 <img
                   src={photo.photoUrl}
                   alt={`Photo from ${photo.customerEmail}`}
@@ -168,10 +168,10 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
               </div>
 
               {/* Photo Details */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-lg">
+              <div className="flex-1 min-w-0 w-full">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-md sm:gap-lg">
                   <div className="flex-1 min-w-0">
-                    <h3 className="heading-5 text-primary truncate">
+                    <h3 className="heading-6 sm:heading-5 text-primary truncate">
                       {photo.customerEmail}
                     </h3>
                     <p className="text-secondary text-small mt-xs">
@@ -182,10 +182,11 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-md">
+                  <div className="flex flex-row sm:flex-row items-center gap-sm sm:gap-md w-full sm:w-auto">
                     {getStatusBadge(photo.status)}
-                    <button className="btn btn-outline btn-sm">
-                      View Details
+                    <button className="btn btn-outline btn-sm flex-1 sm:flex-none">
+                      <span className="hide-mobile">View Details</span>
+                      <span className="show-mobile">View</span>
                     </button>
                   </div>
                 </div>
