@@ -96,7 +96,7 @@ const AdminPhotosPage: React.FC = () => {
           <header className="glass-card mx-6 mt-6 p-6 fade-in">
             <div className="flex justify-between items-center max-w-7xl mx-auto">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
                   <svg width="28" height="28" fill="white" viewBox="0 0 24 24">
                     <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
                   </svg>
@@ -134,7 +134,7 @@ const AdminPhotosPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 slide-up">
               <div className="stat-card">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                       <path d="M9 11L12 14L22 4"/>
                       <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16"/>
@@ -148,7 +148,7 @@ const AdminPhotosPage: React.FC = () => {
 
               <div className="stat-card">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"/>
                     </svg>
@@ -161,7 +161,7 @@ const AdminPhotosPage: React.FC = () => {
 
               <div className="stat-card">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-coral-500 to-orange-500 rounded-xl flex items-center justify-center">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                       <path d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18A8 8 0 1 1 20 12A8 8 0 0 1 12 20Z"/>
                       <path d="M12 6V12L16 16"/>
@@ -175,7 +175,7 @@ const AdminPhotosPage: React.FC = () => {
 
               <div className="stat-card">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                       <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
                     </svg>
@@ -240,7 +240,7 @@ const AdminPhotosPage: React.FC = () => {
                       .slice(0, 3)
                       .map((photo, index) => (
                         <div key={photo.id} className="flex items-center space-x-3 p-2 rounded-lg bg-white/5">
-                          <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          <div className="w-8 h-8 bg-gradient-to-r from-coral-400 to-orange-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
                             {index + 1}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -285,7 +285,7 @@ const AdminPhotosPage: React.FC = () => {
             {/* Phase 1 Info Banner */}
             <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-6 mb-6 bounce-in">
               <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                   <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
                     <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
                   </svg>

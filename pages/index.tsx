@@ -32,7 +32,7 @@ const CustomerUploadPage: React.FC = () => {
           <nav className="glass-card mx-6 mt-6 p-4 fade-in">
             <div className="flex justify-between items-center max-w-7xl mx-auto">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
                   <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                     <path d="M9 3L5 6.5V21h14V6.5L15 3z"/>
                     <path d="M12 8a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
@@ -69,7 +69,7 @@ const CustomerUploadPage: React.FC = () => {
                     </div>
                     <h1 className="text-5xl lg:text-6xl font-black text-white leading-tight">
                       Transform Your
-                      <span className="block bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                      <span className="block bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
                         Photos with AI
                       </span>
                     </h1>
@@ -82,7 +82,7 @@ const CustomerUploadPage: React.FC = () => {
                   {/* Features Grid */}
                   <div className="grid grid-cols-2 gap-4 max-w-lg">
                     <div className="glass-card p-4 text-center bounce-in" style={{ animationDelay: '0.2s' }}>
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-xl flex items-center justify-center mx-auto mb-3">
+                      <div className="w-12 h-12 bg-gradient-to-r from-orange-400 to-red-400 rounded-xl flex items-center justify-center mx-auto mb-3">
                         <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                           <path d="M13 3L4 14h7v7l9-11h-7V3z"/>
                         </svg>
@@ -92,7 +92,7 @@ const CustomerUploadPage: React.FC = () => {
                     </div>
 
                     <div className="glass-card p-4 text-center bounce-in" style={{ animationDelay: '0.4s' }}>
-                      <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-400 rounded-xl flex items-center justify-center mx-auto mb-3">
+                      <div className="w-12 h-12 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-xl flex items-center justify-center mx-auto mb-3">
                         <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                           <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
                         </svg>
@@ -102,7 +102,7 @@ const CustomerUploadPage: React.FC = () => {
                     </div>
 
                     <div className="glass-card p-4 text-center bounce-in" style={{ animationDelay: '0.6s' }}>
-                      <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-xl flex items-center justify-center mx-auto mb-3">
+                      <div className="w-12 h-12 bg-gradient-to-r from-coral-400 to-orange-400 rounded-xl flex items-center justify-center mx-auto mb-3">
                         <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                           <path d="M9 12L11 14L15 10M12 3L1 9L12 15L23 9L12 3Z"/>
                         </svg>
@@ -155,15 +155,15 @@ const CustomerUploadPage: React.FC = () => {
                   <h3 className="font-semibold text-white mb-2">How It Works</h3>
                   <div className="space-y-2 text-sm text-white/70">
                     <div className="flex items-center md:justify-start justify-center space-x-2">
-                      <span className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xs font-bold">1</span>
+                      <span className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">1</span>
                       <span>Upload your photo</span>
                     </div>
                     <div className="flex items-center md:justify-start justify-center space-x-2">
-                      <span className="w-6 h-6 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">2</span>
+                      <span className="w-6 h-6 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">2</span>
                       <span>AI processes your image</span>
                     </div>
                     <div className="flex items-center md:justify-start justify-center space-x-2">
-                      <span className="w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</span>
+                      <span className="w-6 h-6 bg-gradient-to-r from-coral-500 to-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</span>
                       <span>Receive enhanced results</span>
                     </div>
                   </div>

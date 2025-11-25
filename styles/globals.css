@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Modern Color Palette */
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --warning-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-  --danger-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  /* Ocean Sunset Color Palette */
+  --primary-gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  --secondary-gradient: linear-gradient(135deg, #ff8a80 0%, #ff5722 100%);
+  --success-gradient: linear-gradient(135deg, #26c6da 0%, #00acc1 100%);
+  --warning-gradient: linear-gradient(135deg, #ffb74d 0%, #ffa726 100%);
+  --danger-gradient: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
+  --accent-gradient: linear-gradient(135deg, #4dd0e1 0%, #26c6da 100%);
+  --coral-gradient: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
+  --teal-gradient: linear-gradient(135deg, #4db6ac 0%, #26a69a 100%);
+  
+  /* Additional coral/orange shades for feature cards */
+  --coral-400: #ff7043;
+  --coral-500: #ff5722;
+  --teal-400: #4dd0e1;
+  --teal-500: #26c6da;
   
   /* Glass morphism */
   --glass-bg: rgba(255, 255, 255, 0.25);
@@ -14,8 +23,8 @@
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   
   /* Dark mode colors */
-  --dark-bg: linear-gradient(135deg, #1e1e2e 0%, #2d1b69 100%);
-  --dark-card: rgba(45, 27, 105, 0.3);
+  --dark-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  --dark-card: rgba(44, 83, 100, 0.3);
   
   /* Text colors */
   --text-primary: #2d3748;
@@ -41,7 +50,7 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--primary-gradient);
+  background: var(--dark-bg);
   min-height: 100vh;
   color: var(--text-primary);
   overflow-x: hidden;
@@ -54,7 +63,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: var(--primary-gradient);
+  background: var(--dark-bg);
   z-index: -2;
 }
 
