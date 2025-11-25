@@ -9,9 +9,9 @@ interface PhotoTableProps {
 
 const getStatusBadge = (status: PhotoData['status']) => {
   const statusConfig = {
-    pending: { className: 'status-badge pending', label: 'Pending' },
-    processing: { className: 'status-badge processing', label: 'Processing' },
-    done: { className: 'status-badge done', label: 'Done' },
+    pending: { className: 'badge badge-warning', label: 'Pending' },
+    processing: { className: 'badge badge-info', label: 'Processing' },
+    done: { className: 'badge badge-success', label: 'Done' },
   };
   
   const config = statusConfig[status];
@@ -48,32 +48,32 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
 
   if (loading) {
     return (
-      <div className="glass-card p-8 text-center bounce-in">
-        <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="card text-center bounce-in">
+        <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-lg">
           <div className="loading-spinner" />
         </div>
-        <h3 className="text-xl font-semibold text-white mb-2">Loading Photos...</h3>
-        <p className="text-white/70">Fetching latest uploads from the server</p>
+        <h3 className="heading-4 text-primary mb-sm">Loading Photos...</h3>
+        <p className="text-secondary">Fetching latest uploads from the server</p>
       </div>
     );
   }
 
   if (photos.length === 0) {
     return (
-      <div className="glass-card p-8 text-center bounce-in">
-        <div className="w-20 h-20 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="card text-center bounce-in">
+        <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-3xl flex items-center justify-center mx-auto mb-xl">
           <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
             <path d="M9 3L5 6.5V21h14V6.5L15 3z"/>
             <path d="M12 8a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-white mb-3">No Photos Yet</h3>
-        <p className="text-white/70 mb-6 max-w-md mx-auto">
+        <h3 className="heading-3 text-primary mb-md">No Photos Yet</h3>
+        <p className="text-secondary mb-xl max-w-md mx-auto leading-relaxed">
           Customer photo uploads will appear here once they start submitting photos through the upload portal.
         </p>
         <button 
           onClick={() => window.location.href = '/'}
-          className="gradient-button success"
+          className="btn btn-secondary"
         >
           📸 Go to Upload Portal
         </button>
@@ -82,22 +82,22 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-xl">
       {/* Search and Filters */}
-      <div className="glass-card p-6 slide-up">
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+      <div className="card slide-up">
+        <div className="flex flex-col md:flex-row gap-lg items-start md:items-center justify-between">
           <div className="flex-1 max-w-md">
-            <label className="block text-white font-semibold mb-2">Search Photos</label>
+            <label className="block text-primary font-semibold mb-sm">Search Photos</label>
             <div className="relative">
               <input
                 type="text"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
-                className="form-input pl-10"
+                className="input pl-10"
                 placeholder="Search by customer email..."
               />
               <svg 
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50" 
+                className="absolute left-md top-1/2 transform -translate-y-1/2 text-muted" 
                 width="16" 
                 height="16" 
                 fill="currentColor" 
@@ -108,13 +108,13 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
             </div>
           </div>
           
-          <div className="flex gap-3">
+          <div className="flex gap-md">
             <div>
-              <label className="block text-white font-semibold mb-2">Filter by Status</label>
+              <label className="block text-primary font-semibold mb-sm">Filter by Status</label>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="form-input min-w-[140px]"
+                className="input min-w-[140px]"
               >
                 <option value="all">All Status</option>
                 <option value="pending">Pending</option>
@@ -129,7 +129,7 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
                   setSearchValue('');
                   setStatusFilter('all');
                 }}
-                className="gradient-button text-sm px-4 py-2"
+                className="btn btn-outline btn-sm"
               >
                 Clear Filters
               </button>
@@ -138,28 +138,28 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
         </div>
         
         {/* Results Summary */}
-        <div className="mt-4 pt-4 border-t border-white/10">
-          <p className="text-white/70 text-sm">
+        <div className="mt-lg pt-lg border-t border-glass-border">
+          <p className="text-secondary text-small">
             Showing {filteredPhotos.length} of {photos.length} photos
             {(searchValue || statusFilter !== 'all') && (
-              <span className="text-white/90"> • Filtered results</span>
+              <span className="text-primary"> • Filtered results</span>
             )}
           </p>
         </div>
       </div>
 
       {/* Photos Grid */}
-      <div className="grid gap-6">
+      <div className="grid gap-xl">
         {filteredPhotos.map((photo, index) => (
           <div
             key={photo.id}
             onClick={() => onPhotoClick(photo)}
-            className="glass-card p-6 cursor-pointer transition-all hover:scale-[1.02] bounce-in"
+            className="card cursor-pointer transition-all hover:scale-[1.02] bounce-in group"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-xl">
               {/* Photo Thumbnail */}
-              <div className="photo-thumbnail w-20 h-20 flex-shrink-0">
+              <div className="w-20 h-20 flex-shrink-0">
                 <img
                   src={photo.photoUrl}
                   alt={`Photo from ${photo.customerEmail}`}
@@ -169,22 +169,22 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
 
               {/* Photo Details */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start justify-between gap-lg">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-semibold text-white truncate">
+                    <h3 className="heading-5 text-primary truncate">
                       {photo.customerEmail}
                     </h3>
-                    <p className="text-white/60 text-sm mt-1">
+                    <p className="text-secondary text-small mt-xs">
                       Uploaded {formatDate(photo.createdAt)}
                     </p>
-                    <p className="text-white/50 text-xs mt-1">
+                    <p className="text-muted text-xs mt-xs">
                       ID: {photo.id}
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-md">
                     {getStatusBadge(photo.status)}
-                    <button className="gradient-button text-xs px-3 py-1">
+                    <button className="btn btn-outline btn-sm">
                       View Details
                     </button>
                   </div>
@@ -192,17 +192,17 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
 
                 {/* Progress Indicator for Processing */}
                 {photo.status === 'processing' && (
-                  <div className="mt-3">
-                    <div className="progress-bar h-1">
+                  <div className="mt-md">
+                    <div className="progress-bar h-1 mb-xs">
                       <div className="progress-fill w-3/4" />
                     </div>
-                    <p className="text-white/60 text-xs mt-1">Processing in progress...</p>
+                    <p className="text-secondary text-xs">Processing in progress...</p>
                   </div>
                 )}
 
                 {/* Success Message for Done */}
                 {photo.status === 'done' && (
-                  <div className="mt-3 flex items-center gap-2 text-green-300">
+                  <div className="mt-md flex items-center gap-sm text-emerald-300">
                     <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
                     </svg>
@@ -212,7 +212,7 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
               </div>
 
               {/* Arrow Icon */}
-              <div className="text-white/40 transition-colors group-hover:text-white/60">
+              <div className="text-muted transition-colors group-hover:text-secondary">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z"/>
                 </svg>
@@ -222,14 +222,14 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
         ))}
 
         {filteredPhotos.length === 0 && photos.length > 0 && (
-          <div className="glass-card p-8 text-center">
-            <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="card text-center">
+            <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-lg">
               <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24" className="text-yellow-300">
                 <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3S3 5.91 3 9.5S5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5S14 7.01 14 9.5S11.99 14 9.5 14Z"/>
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">No Matches Found</h3>
-            <p className="text-white/70 mb-4">
+            <h3 className="heading-4 text-primary mb-sm">No Matches Found</h3>
+            <p className="text-secondary mb-lg">
               Try adjusting your search terms or filters to find what you&apos;re looking for.
             </p>
             <button
@@ -237,7 +237,7 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
                 setSearchValue('');
                 setStatusFilter('all');
               }}
-              className="gradient-button"
+              className="btn btn-primary"
             >
               Clear All Filters
             </button>
