@@ -137,7 +137,7 @@ const AdminPhotosPage: React.FC = () => {
         <main className="page-main">
           <div className="container">
             {/* Stats Dashboard */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl mb-4xl fade-in">
+            <div className="admin-section-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl mb-4xl fade-in">
               <div className="card text-center">
                 <div className="flex items-center justify-between mb-lg">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center">

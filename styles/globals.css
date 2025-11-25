@@ -142,6 +142,11 @@ body {
   padding-bottom: 0px;
 }
 
+.admin-section-1 {
+  display: flex;
+  justify-content: space-between;
+}
+
 .category-title {
   color: white;
 }
