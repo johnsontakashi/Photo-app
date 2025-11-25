@@ -123,26 +123,56 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
     }
   }, [file, customerEmail, gdprConsent, onUploadSuccess]);
 
+  const handleDragEnter = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  }, []);
+
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragging(true);
   }, []);
 
   const handleDragLeave = useCallback((e: React.DragEvent) => {
     e.preventDefault();
-    setIsDragging(false);
+    e.stopPropagation();
+    
+    // Only set dragging to false if leaving the upload area completely
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX;
+    const y = e.clientY;
+    
+    if (x < rect.left || x >= rect.right || y < rect.top || y >= rect.bottom) {
+      setIsDragging(false);
+    }
   }, []);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragging(false);
+    
     const files = Array.from(e.dataTransfer.files);
-    handleFileSelect(files);
+    if (files.length > 0) {
+      handleFileSelect(files);
+    }
   }, [handleFileSelect]);
 
-  const handleClick = () => {
+  const handleFileInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length > 0) {
+      handleFileSelect(files);
+    }
+    // Reset the input value so the same file can be selected again
+    e.target.value = '';
+  }, [handleFileSelect]);
+
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
     fileInputRef.current?.click();
-  };
+  }, []);
 
   return (
     <div className="pro-uploader-container">
@@ -213,11 +243,21 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
           </label>
           <div
             className={`pro-upload-card ${isDragging ? 'pro-upload-dragging' : ''} ${preview ? 'pro-upload-has-file' : ''}`}
+            onDragEnter={handleDragEnter}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
             onClick={handleClick}
           >
+            {/* Hidden file input */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileInputChange}
+              accept="image/jpeg,image/jpg,image/png,image/webp"
+              style={{ display: 'none' }}
+              disabled={loading}
+            />
             {preview ? (
               <div className="pro-preview">
                 <div className="pro-preview-image">

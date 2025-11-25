@@ -15,6 +15,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `vercel` - Deploy to Vercel (requires Vercel CLI)
 - `vercel --prod` - Production deployment
 
+### Quality Checks
+When making changes, always run these commands before committing:
+1. `npm run type-check` - Ensure TypeScript types are correct
+2. `npm run lint` - Check code style and catch potential issues
+
 ## Project Architecture
 
 ### Technology Stack
@@ -40,8 +45,10 @@ This is a **PhotoAI Pro** application - an AI-powered photo processing app with 
 
 ### Storage Architecture
 Currently in **Phase 1** with temporary storage:
-- **Metadata**: In-memory array (`photoMetadata`) in `lib/storage.ts`
-- **Files**: Stored in `/tmp/uploads` directory
+- **Metadata**: In-memory array (`photoMetadata`) in `lib/storage.ts:7`
+- **Files**: Stored in `/tmp/uploads` directory (created automatically)
+- **Storage Service**: All operations go through `StorageService` object in `lib/storage.ts`
+- **Important**: Data is lost on server restart (in-memory storage)
 - **Future**: Phase 2 will integrate with n8n workflows, Phase 3 with ComfyUI AI
 
 ### API Routes
@@ -77,3 +84,13 @@ Currently in **Phase 1** with temporary storage:
 - Custom CSS with CSS3 gradients and modern effects
 - Photo status workflow: 'pending' → 'processing' → 'done'
 - Temporary storage will be replaced in future phases
+- TypeScript types defined in `types/index.ts` - extend PhotoData interface for new fields
+- File uploads use multer middleware in API routes
+- All image serving goes through `/api/photos/serve/[filename]` for security
+
+### Important Implementation Details
+- **File Upload Flow**: Client → `/api/upload-photo` → `StorageService.saveFile()` + `savePhoto()`
+- **Photo Status Updates**: Use `StorageService.updatePhotoStatus(id, status)` 
+- **Data Retrieval**: `StorageService.getAllPhotos()` returns sorted by creation date (newest first)
+- **File Validation**: Both client-side (drag/drop) and server-side (multer + manual checks)
+- **Path Handling**: All file paths use `path.join()` to prevent traversal attacks
