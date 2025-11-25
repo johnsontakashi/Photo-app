@@ -271,16 +271,6 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
           </div>
         </div>
 
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept=".jpg,.jpeg,.png,.webp"
-          onChange={(e) => {
-            const files = Array.from(e.target.files || []);
-            handleFileSelect(files);
-          }}
-          className="hidden"
-        />
 
         {/* Professional Progress Bar */}
         {loading && (
