@@ -195,7 +195,7 @@ const AdminPhotosPage: React.FC = () => {
 
             {/* System Status */}
             <div className="admin-section-2 grid md:grid-cols-3 gap-xl mb-4xl">
-              <div className="card slide-up" style={{ animationDelay: '0.2s' }}>
+              <div className="card-2 card slide-up" style={{ animationDelay: '0.2s' }}>
                 <h3 className="heading-5 text-primary mb-lg">System Status</h3>
                 <div className="space-y-md">
                   <div className="flex items-center justify-between">
@@ -222,7 +222,7 @@ const AdminPhotosPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="card slide-up" style={{ animationDelay: '0.4s' }}>
+              <div className="card-2 card slide-up" style={{ animationDelay: '0.4s' }}>
                 <h3 className="heading-5 text-primary mb-lg">Quick Actions</h3>
                 <div className="space-y-md quick-action">
                   <button className="btn btn-primary btn-sm w-full">
@@ -237,7 +237,7 @@ const AdminPhotosPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="card slide-up" style={{ animationDelay: '0.6s' }}>
+              <div className="card-2 card slide-up" style={{ animationDelay: '0.6s' }}>
                 <h3 className="heading-5 text-primary mb-lg">Recent Activity</h3>
                 {photos.length > 0 ? (
                   <div className="space-y-md">

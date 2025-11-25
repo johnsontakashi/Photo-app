@@ -164,6 +164,7 @@ body {
   justify-content: space-between;
   margin: 50px 0;
   margin-bottom: 130px;
+  width: 100%;
 }
 
 .category-title {
@@ -474,6 +475,15 @@ body {
 
 .status {
   color: rgb(37, 236, 19);
+}
+
+.quick-action {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-2 {
+  width: 33.3%;
 }
 
 .status-pending {
