@@ -480,10 +480,19 @@ body {
 .quick-action {
   display: flex;
   flex-direction: column;
+  gap: 9px;
 }
 
-.card-2 {
-  width: 33.3%;
+.card-2-1 {
+  width: 25%;
+}
+
+.card-2-2 {
+  width: 50%;
+}
+
+.card-2-3 {
+  width: 25%;
 }
 
 .status-pending {
