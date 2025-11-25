@@ -351,57 +351,6 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
             </div>
           )}
         </button>
-
-        {/* Professional Features */}
-        <div className="pro-features">
-          <div className="pro-feature">
-            <div className="pro-feature-icon pro-feature-speed">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13 3L4 14h7v7l9-11h-7V3z"/>
-              </svg>
-            </div>
-            <div className="pro-feature-content">
-              <span className="pro-feature-title">Lightning Fast</span>
-              <span className="pro-feature-desc">Instant processing</span>
-            </div>
-          </div>
-          
-          <div className="pro-feature">
-            <div className="pro-feature-icon pro-feature-ai">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
-              </svg>
-            </div>
-            <div className="pro-feature-content">
-              <span className="pro-feature-title">AI Enhanced</span>
-              <span className="pro-feature-desc">Smart optimization</span>
-            </div>
-          </div>
-          
-          <div className="pro-feature">
-            <div className="pro-feature-icon pro-feature-security">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
-              </svg>
-            </div>
-            <div className="pro-feature-content">
-              <span className="pro-feature-title">Secure & Private</span>
-              <span className="pro-feature-desc">Encrypted uploads</span>
-            </div>
-          </div>
-          
-          <div className="pro-feature">
-            <div className="pro-feature-icon pro-feature-support">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"/>
-              </svg>
-            </div>
-            <div className="pro-feature-content">
-              <span className="pro-feature-title">24/7 Support</span>
-              <span className="pro-feature-desc">Always available</span>
-            </div>
-          </div>
-        </div>
 1      </div>
     </div>
   );
