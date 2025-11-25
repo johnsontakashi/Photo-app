@@ -123,7 +123,7 @@ const CustomerUploadPage: React.FC = () => {
             </section>
 
             {/* Features Grid */}
-            <section className="mb-4xl">
+            <section className="mb-4xl mt-20 mb-20">
               <div className="container-lg mx-auto">
                 <div className="text-center mb-2xl">
                   <h2 className="heading-3 text-primary mb-md">Why Choose PhotoAI Pro?</h2>
