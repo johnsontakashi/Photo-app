@@ -145,47 +145,50 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
   };
 
   return (
-    <div className="photo-uploader-container">
-      {/* Clean Header */}
-      <div className="uploader-header">
-        <div className="header-icon">
-          <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+    <div className="pro-uploader-container">
+      {/* Professional Header */}
+      <div className="pro-header">
+        <div className="pro-icon">
+          <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
             <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
             <path d="M12,12L15,15H13V19H11V15H9L12,12Z"/>
           </svg>
         </div>
-        <h1 className="header-title">Upload Your Photo</h1>
-        <p className="header-subtitle">
-          Transform your images with AI-powered processing
+        <h1 className="pro-title">Upload Your Photo</h1>
+        <p className="pro-subtitle">
+          Transform your images with professional AI-powered processing
         </p>
       </div>
 
-      {/* Clean Message Banner */}
+      {/* Professional Message Banner */}
       {message && (
-        <div className={`message-banner ${message.type === 'success' ? 'message-success' : 'message-error'}`}>
-          <div className="message-icon">
+        <div className={`pro-alert ${message.type === 'success' ? 'pro-alert-success' : 'pro-alert-error'}`}>
+          <div className="pro-alert-icon">
             {message.type === 'success' ? (
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
               </svg>
             ) : (
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"/>
               </svg>
             )}
           </div>
-          <p className="message-text">{message.content}</p>
+          <div className="pro-alert-content">
+            <p className="pro-alert-text">{message.content}</p>
+          </div>
         </div>
       )}
 
-      <div className="uploader-form">
-        {/* Clean Email Input */}
-        <div className="form-section">
-          <label className="form-label">
+      <div className="pro-form">
+        {/* Professional Email Input */}
+        <div className="pro-field">
+          <label className="pro-label">
             Email Address
+            <span className="pro-required">*</span>
           </label>
-          <div className="input-wrapper">
-            <div className="input-icon">
+          <div className="pro-input-group">
+            <div className="pro-input-icon">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
               </svg>
@@ -194,7 +197,7 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
               type="email"
               value={customerEmail}
               onChange={(e) => setCustomerEmail(e.target.value)}
-              className="form-input"
+              className="pro-input"
               placeholder="your.email@example.com"
               disabled={loading}
               required
@@ -202,25 +205,26 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
           </div>
         </div>
 
-        {/* Clean File Upload Zone */}
-        <div className="form-section">
-          <label className="form-label">
+        {/* Professional Upload Card */}
+        <div className="pro-field">
+          <label className="pro-label">
             Photo Upload
+            <span className="pro-required">*</span>
           </label>
           <div
-            className={`upload-zone ${isDragging ? 'upload-zone-dragging' : ''}`}
+            className={`pro-upload-card ${isDragging ? 'pro-upload-dragging' : ''} ${preview ? 'pro-upload-has-file' : ''}`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
             onClick={handleClick}
           >
             {preview ? (
-              <div className="upload-preview">
-                <div className="preview-image-container">
+              <div className="pro-preview">
+                <div className="pro-preview-image">
                   <img
                     src={preview}
                     alt="Preview"
-                    className="preview-image"
+                    className="pro-image"
                   />
                   <button
                     onClick={(e) => {
@@ -228,48 +232,38 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
                       setFile(null);
                       setPreview(null);
                     }}
-                    className="preview-remove-btn"
+                    className="pro-remove-btn"
                     aria-label="Remove image"
                   >
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"/>
                     </svg>
                   </button>
                 </div>
-                <div className="preview-info">
-                  <p className="preview-filename">{file?.name}</p>
-                  <p className="preview-filesize">
-                    {file ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : ''}
+                <div className="pro-preview-info">
+                  <h4 className="pro-filename">{file?.name}</h4>
+                  <p className="pro-filesize">
+                    {file ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : ''} • Ready to upload
                   </p>
-                  <div className="preview-status">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
-                    </svg>
-                    <span>Ready to upload</span>
-                  </div>
                 </div>
               </div>
             ) : (
-              <div className="upload-empty">
-                <div className="upload-icon">
-                  <svg width="40" height="40" fill="currentColor" viewBox="0 0 24 24">
+              <div className="pro-upload-empty">
+                <div className="pro-upload-icon">
+                  <svg width="48" height="48" fill="currentColor" viewBox="0 0 24 24">
                     {isDragging ? (
                       <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
                     ) : (
-                      <>
-                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-                        <path d="M12,12L15,15H13V19H11V15H9L12,12Z"/>
-                      </>
+                      <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z M12,12L15,15H13V19H11V15H9L12,12Z"/>
                     )}
                   </svg>
                 </div>
-                
-                <div className="upload-text">
-                  <h3 className="upload-title">
-                    {isDragging ? 'Drop your photo here!' : 'Choose or drag your photo'}
+                <div className="pro-upload-content">
+                  <h3 className="pro-upload-title">
+                    {isDragging ? 'Drop your photo here' : 'Click to upload or drag and drop'}
                   </h3>
-                  <p className="upload-subtitle">
-                    JPG, PNG, WebP • Max 10MB
+                  <p className="pro-upload-subtitle">
+                    JPEG, PNG, or WebP (max 10MB)
                   </p>
                 </div>
               </div>
@@ -288,110 +282,124 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
           className="hidden"
         />
 
-        {/* Clean Progress Bar */}
+        {/* Professional Progress Bar */}
         {loading && (
-          <div className="progress-section">
-            <div className="progress-bar-container">
+          <div className="pro-progress">
+            <div className="pro-progress-header">
+              <span className="pro-progress-label">Uploading your photo</span>
+              <span className="pro-progress-percent">{uploadProgress}%</span>
+            </div>
+            <div className="pro-progress-bar">
               <div 
-                className="progress-bar-fill"
+                className="pro-progress-fill"
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
-            <p className="progress-text">
-              Uploading... {uploadProgress}%
-            </p>
           </div>
         )}
 
-        {/* Clean GDPR Consent */}
-        <div className="consent-section">
-          <label className="consent-wrapper">
+        {/* Professional Consent */}
+        <div className="pro-consent">
+          <label className="pro-checkbox-group">
             <input
               type="checkbox"
               checked={gdprConsent}
               onChange={(e) => setGdprConsent(e.target.checked)}
               disabled={loading}
-              className="consent-checkbox"
+              className="pro-checkbox-input"
             />
-            <div className="consent-checkmark">
+            <div className="pro-checkbox">
               {gdprConsent && (
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
                 </svg>
               )}
             </div>
-            <span className="consent-text">
-              I consent to the processing of my personal data according to the{' '}
-              <button className="consent-link">
-                privacy policy
-              </button>
-              {' '}and agree to receive email notifications about my photo processing.
-            </span>
+            <div className="pro-consent-content">
+              <span className="pro-consent-text">
+                I agree to the{' '}
+                <button type="button" className="pro-link">
+                  Terms of Service
+                </button>
+                {' '}and{' '}
+                <button type="button" className="pro-link">
+                  Privacy Policy
+                </button>
+                , and consent to email notifications about my photo processing.
+              </span>
+            </div>
           </label>
         </div>
 
-        {/* Clean Submit Button */}
+        {/* Professional CTA Button */}
         <button
           onClick={handleSubmit}
           disabled={!file || !customerEmail || !gdprConsent || loading}
-          className={`submit-button ${(!file || !customerEmail || !gdprConsent || loading) ? 'submit-button-disabled' : 'submit-button-enabled'}`}
+          className={`pro-button ${(!file || !customerEmail || !gdprConsent || loading) ? 'pro-button-disabled' : 'pro-button-primary'}`}
         >
           {loading ? (
-            <div className="submit-loading">
-              <div className="submit-spinner"></div>
+            <div className="pro-button-content">
+              <div className="pro-spinner"></div>
               <span>Processing Your Photo...</span>
             </div>
           ) : (
-            <div className="submit-content">
+            <div className="pro-button-content">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
               </svg>
-              <span>Upload & Process</span>
+              <span>Upload & Process Photo</span>
             </div>
           )}
         </button>
 
-        {/* Feature Highlights */}
-        <div className="features-grid">
-          <div className="feature-item">
-            <div className="feature-icon feature-icon-speed">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13,13L8,8L7,9L13,15L21,7L20,6L13,13Z"/>
-                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20Z"/>
+        {/* Professional Features */}
+        <div className="pro-features">
+          <div className="pro-feature">
+            <div className="pro-feature-icon pro-feature-speed">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M13 3L4 14h7v7l9-11h-7V3z"/>
               </svg>
             </div>
-            <h5 className="feature-title">Lightning Fast</h5>
-            <p className="feature-text">Instant processing</p>
+            <div className="pro-feature-content">
+              <span className="pro-feature-title">Lightning Fast</span>
+              <span className="pro-feature-desc">Instant processing</span>
+            </div>
           </div>
           
-          <div className="feature-item">
-            <div className="feature-icon feature-icon-ai">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6Z"/>
+          <div className="pro-feature">
+            <div className="pro-feature-icon pro-feature-ai">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
               </svg>
             </div>
-            <h5 className="feature-title">AI Enhanced</h5>
-            <p className="feature-text">Smart optimization</p>
+            <div className="pro-feature-content">
+              <span className="pro-feature-title">AI Enhanced</span>
+              <span className="pro-feature-desc">Smart optimization</span>
+            </div>
           </div>
           
-          <div className="feature-item">
-            <div className="feature-icon feature-icon-security">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <div className="pro-feature">
+            <div className="pro-feature-icon pro-feature-security">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
               </svg>
             </div>
-            <h5 className="feature-title">Secure & Private</h5>
-            <p className="feature-text">Encrypted uploads</p>
+            <div className="pro-feature-content">
+              <span className="pro-feature-title">Secure & Private</span>
+              <span className="pro-feature-desc">Encrypted uploads</span>
+            </div>
           </div>
           
-          <div className="feature-item">
-            <div className="feature-icon feature-icon-support">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z"/>
+          <div className="pro-feature">
+            <div className="pro-feature-icon pro-feature-support">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"/>
               </svg>
             </div>
-            <h5 className="feature-title">24/7 Support</h5>
-            <p className="feature-text">Always available</p>
+            <div className="pro-feature-content">
+              <span className="pro-feature-title">24/7 Support</span>
+              <span className="pro-feature-desc">Always available</span>
+            </div>
           </div>
         </div>
 1      </div>
