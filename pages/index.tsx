@@ -213,7 +213,7 @@ const CustomerUploadPage: React.FC = () => {
                   <p className="text-large text-secondary">Simple three-step process to transform your photos</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-xl">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-xl flex">
                   <div className="text-center slide-up">
                     <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mx-auto mb-lg">
                       <span className="heading-3 text-white font-extrabold">1</span>
