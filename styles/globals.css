@@ -145,6 +145,7 @@ body {
   padding: var(--space-2xl) 0;
   border-top: 1px solid var(--glass-border);
   background: var(--bg-card);
+  margin-top: var(--space-3xl);
 }
 
 /* Modern Card System */

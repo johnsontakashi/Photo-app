@@ -130,7 +130,7 @@ const CustomerUploadPage: React.FC = () => {
                   <p className="text-large text-secondary">Powerful features designed for professional results</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl flex">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl">
                   <div className="card text-center slide-up">
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mx-auto mb-lg">
                       <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
@@ -213,7 +213,7 @@ const CustomerUploadPage: React.FC = () => {
                   <p className="text-large text-secondary">Simple three-step process to transform your photos</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-xl flex">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-xl">
                   <div className="text-center slide-up">
                     <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mx-auto mb-lg">
                       <span className="heading-3 text-white font-extrabold">1</span>
