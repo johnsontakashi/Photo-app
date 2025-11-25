@@ -71,9 +71,12 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
         <p className="text-white/70 mb-6 max-w-md mx-auto">
           Customer photo uploads will appear here once they start submitting photos through the upload portal.
         </p>
-        <a href="/" className="gradient-button success">
+        <button 
+          onClick={() => window.location.href = '/'}
+          className="gradient-button success"
+        >
           📸 Go to Upload Portal
-        </a>
+        </button>
       </div>
     );
   }
@@ -227,7 +230,7 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">No Matches Found</h3>
             <p className="text-white/70 mb-4">
-              Try adjusting your search terms or filters to find what you're looking for.
+              Try adjusting your search terms or filters to find what you&apos;re looking for.
             </p>
             <button
               onClick={() => {

@@ -118,9 +118,12 @@ const AdminPhotosPage: React.FC = () => {
                   </svg>
                   <span>Refresh</span>
                 </button>
-                <a href="/" className="gradient-button success">
+                <button 
+                  onClick={() => window.location.href = '/'}
+                  className="gradient-button success"
+                >
                   Customer Portal
-                </a>
+                </button>
               </div>
             </div>
           </header>

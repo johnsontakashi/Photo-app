@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/photos/serve/(.*)",
+      "dest": "/api/photos/serve/$1"
+    }
+  ],
+  "functions": {
+    "pages/api/upload-photo.js": {
+      "maxDuration": 30
+    },
+    "pages/api/photos/list.js": {
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

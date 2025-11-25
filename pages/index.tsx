@@ -44,9 +44,12 @@ const CustomerUploadPage: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <a href="/admin/photos" className="gradient-button text-sm">
+                <button 
+                  onClick={() => window.location.href = '/admin/photos'}
+                  className="gradient-button text-sm"
+                >
                   Admin Dashboard
-                </a>
+                </button>
               </div>
             </div>
           </nav>
