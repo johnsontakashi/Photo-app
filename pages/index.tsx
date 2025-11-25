@@ -95,15 +95,15 @@ const CustomerUploadPage: React.FC = () => {
                   <div className="flex items-center justify-center gap-lg mb-2xl">
                     <div className="flex items-center gap-sm">
                       <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                      <span className="text-small font-medium">Lightning Fast</span>
+                      <span className="text-small font-medium category-title">Lightning Fast</span>
                     </div>
                     <div className="flex items-center gap-sm">
                       <div className="w-3 h-3 rounded-full bg-orange-500"></div>
-                      <span className="text-small font-medium">AI-Powered</span>
+                      <span className="text-small font-medium category-title">AI-Powered</span>
                     </div>
                     <div className="flex items-center gap-sm">
                       <div className="w-3 h-3 rounded-full bg-teal-500"></div>
-                      <span className="text-small font-medium">Secure & Private</span>
+                      <span className="text-small font-medium category-title">Secure & Private</span>
                     </div>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ const CustomerUploadPage: React.FC = () => {
             </section>
 
             {/* Features Grid */}
-            <section className="mb-4xl mt-20 mb-20">
+            <section className="sectionAI mb-4xl mt-20 mb-20">
               <div className="container-lg mx-auto">
                 <div className="text-center mb-2xl">
                   <h2 className="heading-3 text-primary mb-md">Why Choose PhotoAI Pro?</h2>
@@ -183,7 +183,7 @@ const CustomerUploadPage: React.FC = () => {
             </section>
 
             {/* Statistics Section */}
-            <section className="mb-4xl">
+            <section className="mb-4xl section-world">
               <div className="container-md mx-auto">
                 <div className="card card-spacious text-center">
                   <h2 className="heading-4 text-primary mb-2xl">Trusted by Professionals Worldwide</h2>
@@ -206,7 +206,7 @@ const CustomerUploadPage: React.FC = () => {
             </section>
 
             {/* Process Steps */}
-            <section className="mb-4xl">
+            <section className="sectionWork mb-4xl">
               <div className="container-lg mx-auto">
                 <div className="text-center mb-2xl">
                   <h2 className="heading-3 text-primary mb-md">How It Works</h2>
@@ -253,7 +253,7 @@ const CustomerUploadPage: React.FC = () => {
         {/* Modern Footer */}
         <footer className="page-footer">
           <div className="container">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-xl text-center md:text-left">
+            <div className="bottom-text grid grid-cols-1 md:grid-cols-3 gap-xl text-center md:text-left">
               
               <div>
                 <h3 className="heading-6 text-primary mb-lg">Supported Formats</h3>
@@ -303,20 +303,11 @@ const CustomerUploadPage: React.FC = () => {
                 <h3 className="heading-6 text-primary mb-lg">Company</h3>
                 <div className="flex flex-col items-center md:items-start gap-sm">
                   <div className="flex items-center gap-sm">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
-                      <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
-                        <path d="M9 3L5 6.5V21h14V6.5L15 3z"/>
-                        <path d="M12 8a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
-                      </svg>
-                    </div>
                     <div>
                       <div className="heading-6 text-primary">PhotoAI Pro</div>
                       <div className="text-xs text-muted">AI Photo Processing Platform</div>
                     </div>
                   </div>
-                  <p className="text-small text-secondary leading-relaxed mt-md">
-                    Transforming photography with cutting-edge artificial intelligence technology.
-                  </p>
                 </div>
               </div>
 
