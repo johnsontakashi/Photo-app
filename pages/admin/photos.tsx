@@ -87,6 +87,7 @@ const AdminPhotosPage: React.FC = () => {
         <title>PhotoAI Pro - Admin Dashboard</title>
         <meta name="description" content="Manage customer photo uploads with AI processing" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
  
@@ -97,13 +98,13 @@ const AdminPhotosPage: React.FC = () => {
             <nav className="flex items-center justify-between">
               <div className="flex items-center gap-lg">
                 <div className="flex items-center gap-md">
-                  <div className="w-12 h-12 card p-md flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
-                      <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
-                        <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
-                      </svg>
-                    </div>
-                  </div>
+                  <img 
+                    src="/logos/photoai-icon.svg" 
+                    alt="PhotoAI Pro" 
+                    width="40" 
+                    height="40" 
+                    style={{ height: 'auto' }}
+                  />
                   <div>
                     <div className="heading-6 text-primary">PhotoAI Pro</div>
                     <div className="text-xs text-muted font-medium">Admin Dashboard</div>

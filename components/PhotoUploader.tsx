@@ -178,11 +178,14 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
     <div className="pro-uploader-container">
       {/* Professional Header */}
       <div className="pro-header">
-        <div className="pro-icon">
-          <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-            <path d="M12,12L15,15H13V19H11V15H9L12,12Z"/>
-          </svg>
+        <div className="pro-icon mb-lg">
+          <img 
+            src="/logos/photoai-icon.svg" 
+            alt="PhotoAI Pro" 
+            width="80" 
+            height="80" 
+            style={{ height: 'auto' }}
+          />
         </div>
         <h1 className="pro-title">Upload Your Photo</h1>
         <p className="pro-subtitle">

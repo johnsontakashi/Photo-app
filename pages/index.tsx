@@ -22,6 +22,7 @@ const CustomerUploadPage: React.FC = () => {
         <title>PhotoAI Pro | AI-Powered Photo Processing Platform</title>
         <meta name="description" content="Transform your photos with our cutting-edge AI technology. Professional photo processing, enhancement, and transformation in minutes." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:title" content="PhotoAI Pro - AI Photo Processing" />
         <meta property="og:description" content="Transform your photos with AI-powered processing" />
@@ -35,18 +36,13 @@ const CustomerUploadPage: React.FC = () => {
             <nav className="flex items-center justify-between">
               <div className="flex items-center gap-lg">
                 <div className="flex items-center gap-md">
-                  <div className="w-12 h-12 card p-md flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
-                      <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
-                        <path d="M9 3L5 6.5V21h14V6.5L15 3z"/>
-                        <path d="M12 8a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
-                      </svg>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="heading-6 text-primary">PhotoAI Pro</div>
-                    <div className="text-xs text-muted font-medium">AI-Powered Processing</div>
-                  </div>
+                  <img 
+                    src="/logos/photoai-pro-logo.svg" 
+                    alt="PhotoAI Pro - AI-Powered Photo Processing" 
+                    width="180" 
+                    height="54" 
+                    style={{ height: 'auto' }}
+                  />
                 </div>
               </div>
               

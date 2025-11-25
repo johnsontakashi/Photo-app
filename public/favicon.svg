@@ -1,0 +1,32 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="faviconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff5722;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="aiFaviconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4dd0e1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#26c6da;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="16" cy="16" r="15" fill="#1e293b"/>
+  
+  <!-- Camera Body -->
+  <rect x="6" y="11" width="20" height="12" rx="3" fill="url(#faviconGradient)"/>
+  
+  <!-- Camera Lens -->
+  <circle cx="16" cy="16" r="6" fill="#0f172a" stroke="white" stroke-width="1"/>
+  <circle cx="16" cy="16" r="4" fill="url(#aiFaviconGradient)"/>
+  <circle cx="15" cy="15" r="1" fill="white" opacity="0.9"/>
+  
+  <!-- Camera Flash -->
+  <rect x="23" y="13" width="2" height="2" rx="0.5" fill="#4dd0e1"/>
+  
+  <!-- AI Indicator Dots -->
+  <circle cx="8" cy="8" r="1" fill="#4dd0e1" opacity="0.8"/>
+  <circle cx="24" cy="8" r="1" fill="#26c6da" opacity="0.8"/>
+  <circle cx="8" cy="24" r="1" fill="#4dd0e1" opacity="0.8"/>
+  <circle cx="24" cy="24" r="1" fill="#26c6da" opacity="0.8"/>
+</svg>

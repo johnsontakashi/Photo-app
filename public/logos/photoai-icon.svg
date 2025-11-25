@@ -1,0 +1,50 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f7931e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff5722;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="aiIconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4dd0e1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#26c6da;stop-opacity:1" />
+    </linearGradient>
+    <filter id="iconGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- AI Enhancement Ring -->
+  <circle cx="25" cy="25" r="22" fill="none" stroke="url(#aiIconGradient)" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.7">
+    <animateTransform attributeName="transform" type="rotate" values="0 25 25;360 25 25" dur="15s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Camera Body -->
+  <rect x="8" y="15" width="34" height="20" rx="6" fill="url(#iconGradient)" filter="url(#iconGlow)"/>
+  
+  <!-- Camera Lens -->
+  <circle cx="25" cy="25" r="10" fill="#1e293b" stroke="white" stroke-width="2"/>
+  <circle cx="25" cy="25" r="7" fill="url(#aiIconGradient)"/>
+  <circle cx="23" cy="23" r="2" fill="white" opacity="0.9"/>
+  
+  <!-- Camera Flash -->
+  <rect x="36" y="18" width="4" height="4" rx="1" fill="#4dd0e1"/>
+  
+  <!-- Aperture Details -->
+  <g transform="translate(25, 25)" opacity="0.4">
+    <path d="M -3,-5 L 3,-5 L 5,-3 L 5,3 L 3,5 L -3,5 L -5,3 L -5,-3 Z" fill="none" stroke="white" stroke-width="0.8"/>
+  </g>
+  
+  <!-- AI Circuit Elements -->
+  <g opacity="0.6" stroke="#4dd0e1" stroke-width="1" fill="#4dd0e1">
+    <circle cx="15" cy="8" r="1.5"/>
+    <circle cx="35" cy="8" r="1.5"/>
+    <circle cx="15" cy="42" r="1.5"/>
+    <circle cx="35" cy="42" r="1.5"/>
+    <path d="M 15,8 L 20,12 M 35,8 L 30,12 M 15,42 L 20,38 M 35,42 L 30,38" stroke-width="0.8" fill="none"/>
+  </g>
+</svg>
