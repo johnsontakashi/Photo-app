@@ -202,7 +202,15 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
                 </div>
               </div>
 
-                {/* Progress Indicator for Processing */}
+              {/* Arrow Icon */}
+              <div className="photo-arrow">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z"/>
+                </svg>
+              </div>
+            </div>
+
+            {/* Progress Indicator for Processing */}
                 {photo.status === 'processing' && (
                   <div className="mt-md">
                     <div className="progress-bar h-1 mb-xs">
@@ -222,14 +230,6 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
                   </div>
                 )}
               </div>
-
-              {/* Arrow Icon */}
-              <div className="text-muted transition-colors group-hover:text-secondary">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z"/>
-                </svg>
-              </div>
-            </div>
           </div>
         ))}
 
@@ -258,6 +258,86 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
       </div>
       
       <style jsx>{`
+        .responsive-photo-row {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          min-width: 0;
+        }
+
+        .photo-thumbnail {
+          width: 4rem;
+          height: 4rem;
+          flex-shrink: 0;
+        }
+
+        .photo-details {
+          display: flex;
+          flex: 1;
+          min-width: 0;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .photo-info {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .photo-header {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 0.25rem;
+          flex-wrap: wrap;
+        }
+
+        .customer-email {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          min-width: 0;
+          flex: 1;
+        }
+
+        .upload-date {
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          margin: 0.25rem 0 0.125rem 0;
+        }
+
+        .photo-id {
+          color: var(--text-muted);
+          font-size: 0.75rem;
+          margin: 0;
+        }
+
+        .photo-actions {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          flex-shrink: 0;
+        }
+
+        .photo-view-btn {
+          flex-shrink: 0;
+        }
+
+        .photo-arrow {
+          color: var(--text-muted);
+          transition: color 0.2s ease;
+          flex-shrink: 0;
+        }
+
+        .card:hover .photo-arrow {
+          color: var(--text-secondary);
+        }
+
         .virtual-fitting-badge {
           display: inline-flex;
           align-items: center;
@@ -270,10 +350,92 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
           font-size: 0.75rem;
           font-weight: 500;
           white-space: nowrap;
+          flex-shrink: 0;
         }
 
         .virtual-fitting-badge svg {
           color: rgba(102, 126, 234, 0.8);
+          flex-shrink: 0;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+          .responsive-photo-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+          }
+
+          .photo-thumbnail {
+            align-self: center;
+          }
+
+          .photo-details {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+            width: 100%;
+          }
+
+          .photo-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+          }
+
+          .customer-email {
+            font-size: 1rem;
+            white-space: normal;
+            word-break: break-word;
+          }
+
+          .photo-actions {
+            align-self: stretch;
+            justify-content: space-between;
+            width: 100%;
+          }
+
+          .photo-view-btn {
+            flex: 1;
+            max-width: 120px;
+          }
+
+          .photo-arrow {
+            display: none;
+          }
+
+          .virtual-fitting-badge span.hide-mobile {
+            display: none;
+          }
+
+          .virtual-fitting-badge span.show-mobile {
+            display: inline;
+          }
+        }
+
+        /* Small mobile adjustments */
+        @media (max-width: 480px) {
+          .photo-header {
+            gap: 0.25rem;
+          }
+
+          .customer-email {
+            font-size: 0.95rem;
+          }
+
+          .upload-date,
+          .photo-id {
+            font-size: 0.8rem;
+          }
+
+          .photo-actions {
+            gap: 0.5rem;
+          }
+
+          .virtual-fitting-badge {
+            padding: 3px 6px;
+            font-size: 0.7rem;
+          }
         }
       `}</style>
     </div>
