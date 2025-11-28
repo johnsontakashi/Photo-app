@@ -172,9 +172,19 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
               <div className="flex-1 min-w-0 w-full">
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-md sm:gap-lg">
                   <div className="flex-1 min-w-0">
-                    <h3 className="heading-6 sm:heading-5 text-primary truncate">
-                      {photo.customerEmail}
-                    </h3>
+                    <div className="flex items-center gap-sm mb-xs">
+                      <h3 className="heading-6 sm:heading-5 text-primary truncate">
+                        {photo.customerEmail}
+                      </h3>
+                      {photo.isVirtualFittingPhoto && (
+                        <div className="virtual-fitting-badge">
+                          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                          </svg>
+                          <span>Virtual Fitting</span>
+                        </div>
+                      )}
+                    </div>
                     <p className="text-secondary text-small mt-xs">
                       Uploaded {formatDate(photo.createdAt)}
                     </p>
@@ -246,6 +256,26 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
           </div>
         )}
       </div>
+      
+      <style jsx>{`
+        .virtual-fitting-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+          border: 1px solid rgba(102, 126, 234, 0.3);
+          color: #667eea;
+          padding: 4px 8px;
+          border-radius: 8px;
+          font-size: 0.75rem;
+          font-weight: 500;
+          white-space: nowrap;
+        }
+
+        .virtual-fitting-badge svg {
+          color: rgba(102, 126, 234, 0.8);
+        }
+      `}</style>
     </div>
   );
 };

@@ -88,12 +88,15 @@ const AdminPhotosPage: React.FC = () => {
       return acc;
     }, {} as Record<string, number>);
 
+    const virtualFittingCount = photos.filter(photo => photo.isVirtualFittingPhoto).length;
+
     return {
       pending: summary.pending || 0,
       processing: summary.processing || 0,
       done: summary.done || 0,
       failed: summary.failed || 0,
       total: photos.length,
+      virtualFitting: virtualFittingCount,
     };
   };
 
@@ -159,7 +162,7 @@ const AdminPhotosPage: React.FC = () => {
         <main className="page-main admin-page-main">
           <div className="container">
             {/* Stats Dashboard */}
-            <div className="admin-section-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl mb-4xl fade-in">
+            <div className="admin-section-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-xl mb-4xl fade-in">
               <div className="card-1 card text-center">
                 <div className="flex items-center justify-between mb-lg">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center">
@@ -212,6 +215,19 @@ const AdminPhotosPage: React.FC = () => {
                 </div>
                 <div className="heading-2 text-primary mb-sm">{statusSummary.done}</div>
                 <div className="text-body text-secondary">Completed</div>
+              </div>
+
+              <div className="card-1 card text-center">
+                <div className="flex items-center justify-between mb-lg">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+                    <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                      <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                    </svg>
+                  </div>
+                  <div className="badge badge-info text-xs">AI</div>
+                </div>
+                <div className="heading-2 text-primary mb-sm">{statusSummary.virtualFitting}</div>
+                <div className="text-body text-secondary">Virtual Fitting</div>
               </div>
             </div>
 

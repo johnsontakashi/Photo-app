@@ -6,6 +6,7 @@ export interface PhotoData {
   fileSize?: number;
   mimeType?: string;
   status: 'pending' | 'processing' | 'done' | 'failed';
+  isVirtualFittingPhoto: boolean;
   createdAt: string;
   updatedAt?: string;
 }
