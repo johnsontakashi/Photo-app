@@ -21,7 +21,7 @@ const AdminPhotosPage: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('/api/photos/list');
+      const response = await fetch('/api/photos/list?stats=true');
       
       if (!response.ok) {
         throw new Error(`Failed to fetch photos: ${response.status}`);
@@ -30,7 +30,19 @@ const AdminPhotosPage: React.FC = () => {
       const data = await response.json();
       
       if (data.success) {
-        setPhotos(data.photos || []);
+        // Convert new API format to existing PhotoData format
+        const convertedPhotos = (data.data || []).map((photo: any) => ({
+          id: photo.id,
+          customerEmail: photo.customerEmail,
+          photoUrl: photo.photoUrl,
+          originalFilename: photo.originalName || 'Unknown',
+          status: photo.status === 'completed' ? 'done' : photo.status,
+          createdAt: photo.createdAt,
+          updatedAt: photo.updatedAt,
+          fileSize: photo.fileSize,
+          mimeType: photo.mimeType,
+        }));
+        setPhotos(convertedPhotos);
       } else {
         throw new Error(data.message || 'Failed to load photos');
       }
@@ -46,6 +58,13 @@ const AdminPhotosPage: React.FC = () => {
   useEffect(() => {
     if (mounted) {
       fetchPhotos();
+      
+      // Set up auto-refresh every 10 seconds
+      const interval = setInterval(() => {
+        fetchPhotos();
+      }, 10000);
+
+      return () => clearInterval(interval);
     }
   }, [fetchPhotos, mounted]);
 
@@ -73,6 +92,7 @@ const AdminPhotosPage: React.FC = () => {
       pending: summary.pending || 0,
       processing: summary.processing || 0,
       done: summary.done || 0,
+      failed: summary.failed || 0,
       total: photos.length,
     };
   };
@@ -208,17 +228,17 @@ const AdminPhotosPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-secondary">Photo Storage</span>
+                    <span className="text-secondary">Database</span>
                     <div className="flex items-center gap-sm">
                       <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                      <span className="status text-emerald-300 text-small">Healthy</span>
+                      <span className="status text-emerald-300 text-small">PostgreSQL</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-secondary">AI Processing</span>
+                    <span className="text-secondary">n8n Webhook</span>
                     <div className="flex items-center gap-sm">
-                      <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                      <span className="status text-red-300 text-small">Phase 2</span>
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                      <span className="status text-yellow-300 text-small">Phase 2</span>
                     </div>
                   </div>
                 </div>

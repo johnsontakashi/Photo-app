@@ -20,6 +20,7 @@ const getStatusBadge = (status: PhotoData['status']) => {
     pending: { status: 'attention' as const, label: 'Pending' },
     processing: { status: 'info' as const, label: 'Processing' },
     done: { status: 'success' as const, label: 'Done' },
+    failed: { status: 'critical' as const, label: 'Failed' },
   };
   
   const config = statusConfig[status];

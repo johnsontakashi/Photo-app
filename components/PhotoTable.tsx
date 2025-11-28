@@ -12,6 +12,7 @@ const getStatusBadge = (status: PhotoData['status']) => {
     pending: { className: 'badge badge-warning', label: 'Pending' },
     processing: { className: 'badge badge-info', label: 'Processing' },
     done: { className: 'badge badge-success', label: 'Done' },
+    failed: { className: 'badge badge-error', label: 'Failed' },
   };
   
   const config = statusConfig[status];

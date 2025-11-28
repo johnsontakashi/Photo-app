@@ -1,24 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import multer from 'multer';
-import { StorageService } from '@/lib/storage';
+import formidable from 'formidable';
+import { db, CreatePhotoData } from '@/lib/db';
+import { fileService } from '@/lib/file';
+import { n8nService } from '@/lib/n8n';
+import { SecurityService } from '@/lib/security';
 import { UploadResponse } from '@/types';
-
-// Configure multer for memory storage
-const storage = multer.memoryStorage();
-const upload = multer({
-  storage,
-  limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB
-  },
-  fileFilter: (req, file, cb) => {
-    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
-    if (allowedMimeTypes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Invalid file type. Only JPG, PNG, and WebP files are allowed.'));
-    }
-  },
-});
 
 // Disable Next.js body parsing to handle multipart/form-data
 export const config = {
@@ -27,35 +13,38 @@ export const config = {
   },
 };
 
-// Simple CSRF token generation/validation
-const generateCSRFToken = (): string => {
-  return Math.random().toString(36).substring(2, 15) + 
-         Math.random().toString(36).substring(2, 15);
+const validateEmail = (email: string): string | null => {
+  return SecurityService.sanitizeEmail(email);
 };
 
-const validateEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email) && email.length <= 254;
+const validateApiSecret = (req: NextApiRequest): boolean => {
+  const apiSecret = process.env.API_SECRET;
+  if (!apiSecret) return true; // Skip validation if no secret is set
+  
+  const providedSecret = req.headers['x-api-secret'] || req.body?.apiSecret;
+  return apiSecret === providedSecret;
 };
 
-// Promisify multer middleware
-const runMiddleware = (
-  req: NextApiRequest & { file?: Express.Multer.File }, 
-  res: NextApiResponse, 
-  fn: Function
-): Promise<void> => {
+const parseFormData = (req: NextApiRequest): Promise<{ fields: formidable.Fields; files: formidable.Files }> => {
   return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) {
-        return reject(result);
+    const form = formidable({
+      maxFileSize: fileService.getMaxFileSize(),
+      keepExtensions: true,
+      multiples: false,
+    });
+
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        reject(err);
+        return;
       }
-      return resolve(result);
+      resolve({ fields, files });
     });
   });
 };
 
 export default async function handler(
-  req: NextApiRequest & { file?: Express.Multer.File },
+  req: NextApiRequest,
   res: NextApiResponse<UploadResponse>
 ) {
   // Only allow POST requests
@@ -67,87 +56,139 @@ export default async function handler(
   }
 
   try {
+    // Rate limiting
+    const clientIP = SecurityService.getClientIP(req);
+    if (!SecurityService.checkRateLimit(clientIP, 5, 60000)) { // 5 uploads per minute
+      return res.status(429).json({
+        success: false,
+        message: 'Too many requests. Please try again later.',
+      });
+    }
+
+    // Validate API secret (if configured)
+    if (!validateApiSecret(req)) {
+      return res.status(401).json({
+        success: false,
+        message: 'Unauthorized',
+      });
+    }
+
     // Parse the multipart form data
-    await runMiddleware(req, res, upload.single('photo'));
+    const { fields, files } = await parseFormData(req);
 
-    // Validate required fields
-    const { customerEmail } = req.body;
+    // Extract and validate customer email
+    const customerEmailRaw = Array.isArray(fields.customerEmail) 
+      ? fields.customerEmail[0] 
+      : fields.customerEmail;
 
-    if (!customerEmail || typeof customerEmail !== 'string') {
+    if (!customerEmailRaw || typeof customerEmailRaw !== 'string') {
       return res.status(400).json({
         success: false,
         message: 'Customer email is required',
       });
     }
 
-    if (!validateEmail(customerEmail)) {
+    const customerEmail = validateEmail(customerEmailRaw);
+    if (!customerEmail) {
       return res.status(400).json({
         success: false,
         message: 'Please provide a valid email address',
       });
     }
 
-    if (!req.file) {
+    // Extract and validate file
+    const photoFile = Array.isArray(files.photo) ? files.photo[0] : files.photo;
+
+    if (!photoFile) {
       return res.status(400).json({
         success: false,
         message: 'Photo file is required',
       });
     }
 
-    // Additional file validation
-    if (req.file.size > 10 * 1024 * 1024) {
+    // Validate file using our service
+    const validation = fileService.validateFile({
+      size: photoFile.size,
+      mimetype: photoFile.mimetype || undefined,
+      originalFilename: photoFile.originalFilename || undefined,
+    });
+
+    if (!validation.isValid) {
       return res.status(400).json({
         success: false,
-        message: 'File size must be less than 10MB',
+        message: validation.error || 'Invalid file',
       });
     }
 
-    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
-    if (!allowedMimeTypes.includes(req.file.mimetype)) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid file type. Only JPG, PNG, and WebP files are allowed.',
-      });
+    // Additional security: validate file signature
+    if (photoFile.mimetype) {
+      const fs = await import('fs');
+      const fileBuffer = await fs.promises.readFile(photoFile.filepath);
+      
+      if (!SecurityService.validateFileSignature(fileBuffer, photoFile.mimetype)) {
+        return res.status(400).json({
+          success: false,
+          message: 'File type does not match content. Security check failed.',
+        });
+      }
     }
 
-    // Save the file to disk
-    const filename = await StorageService.saveFile(
-      req.file.buffer, 
-      req.file.originalname
-    );
+    // Save file to disk
+    const savedFile = await fileService.saveFile({
+      filepath: photoFile.filepath,
+      originalFilename: photoFile.originalFilename || undefined,
+      mimetype: photoFile.mimetype || undefined,
+      size: photoFile.size,
+    });
 
-    // Save metadata
-    const photoData = await StorageService.savePhoto(
+    // Create database record
+    const photoData: CreatePhotoData = {
       customerEmail,
-      filename,
-      req.file.originalname
-    );
+      photoUrl: savedFile.url,
+      originalName: photoFile.originalFilename || undefined,
+      fileSize: photoFile.size,
+      mimeType: photoFile.mimetype || undefined,
+    };
 
-    console.log(`Photo uploaded: ${photoData.id} by ${customerEmail}`);
+    const savedPhoto = await db.createPhotoRecord(photoData);
+
+    console.log(`Photo uploaded: ${savedPhoto.id} by ${customerEmail}`);
+
+    // Send webhook to n8n (non-blocking)
+    n8nService.sendWebhook(savedPhoto).catch(error => {
+      console.error('Webhook failed (non-blocking):', error);
+    });
 
     return res.status(200).json({
       success: true,
       message: 'Photo uploaded successfully',
-      data: photoData,
+      data: {
+        id: savedPhoto.id,
+        photoUrl: savedPhoto.photoUrl,
+        status: savedPhoto.status.toLowerCase(),
+        customerEmail: savedPhoto.customerEmail,
+        createdAt: savedPhoto.createdAt.toISOString(),
+      },
     });
 
   } catch (error) {
     console.error('Upload error:', error);
 
-    if (error instanceof multer.MulterError) {
-      if (error.code === 'LIMIT_FILE_SIZE') {
+    if (error instanceof Error) {
+      // Handle specific formidable errors
+      if (error.message.includes('maxFileSize')) {
         return res.status(400).json({
           success: false,
-          message: 'File size must be less than 10MB',
+          message: `File size exceeds maximum allowed size of ${fileService.getMaxFileSize() / 1024 / 1024}MB`,
         });
       }
-    }
 
-    if (error instanceof Error && error.message.includes('Invalid file type')) {
-      return res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+      if (error.message.includes('Invalid file type')) {
+        return res.status(400).json({
+          success: false,
+          message: error.message,
+        });
+      }
     }
 
     return res.status(500).json({

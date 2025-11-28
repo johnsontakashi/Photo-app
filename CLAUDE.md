@@ -8,8 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run dev` - Start development server on http://localhost:3000
 - `npm run build` - Build production version
 - `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run type-check` - Run TypeScript type checking
+- `npm run lint` - Run ESLint (next lint)
+- `npm run type-check` - Run TypeScript type checking (tsc --noEmit)
 
 ### Testing and Deployment
 - `vercel` - Deploy to Vercel (requires Vercel CLI)
@@ -27,7 +27,8 @@ When making changes, always run these commands before committing:
 - **UI**: Shopify Polaris design system with custom CSS
 - **Styling**: CSS3 with glass morphism and gradient themes
 - **Backend**: Next.js API routes with Node.js
-- **Storage**: Temporary filesystem storage (Phase 1 - in-memory metadata)
+- **Database**: Prisma ORM with PostgreSQL (transitioning from in-memory storage)
+- **Storage**: Filesystem storage with database metadata
 
 ### Core Structure
 This is a **PhotoAI Pro** application - an AI-powered photo processing app with a beautiful modern UI featuring glass morphism and gradient designs.
@@ -39,22 +40,26 @@ This is a **PhotoAI Pro** application - an AI-powered photo processing app with 
 ### Key Directories
 - `pages/` - Next.js pages (customer portal, admin dashboard, API routes)
 - `components/` - Reusable React components (PhotoUploader, PhotoTable, PhotoModal)
-- `lib/storage.ts` - Storage service with in-memory metadata and filesystem storage
+- `lib/` - Utility libraries (storage, database, security, file handling, n8n integration)
+- `prisma/` - Database schema and migrations
 - `types/index.ts` - TypeScript type definitions
 - `styles/globals.css` - Global styles with gradient themes
 
-### Storage Architecture
-Currently in **Phase 1** with temporary storage:
-- **Metadata**: In-memory array (`photoMetadata`) in `lib/storage.ts:7`
+### Database Architecture
+**Transitioning to Prisma + PostgreSQL:**
+- **Current**: Hybrid approach with in-memory storage (`lib/storage.ts`) and Prisma schema ready
+- **Schema**: Photo model with comprehensive metadata (prisma/schema.prisma:15)
+- **Status Enum**: PENDING, PROCESSING, COMPLETED, FAILED (prisma/schema.prisma:33)
+- **Indexes**: Optimized for status, creation date, and customer email lookups
 - **Files**: Stored in `/tmp/uploads` directory (created automatically)
-- **Storage Service**: All operations go through `StorageService` object in `lib/storage.ts`
-- **Important**: Data is lost on server restart (in-memory storage)
-- **Future**: Phase 2 will integrate with n8n workflows, Phase 3 with ComfyUI AI
+- **Important**: In-memory data lost on restart until full Prisma migration
+- **Future**: Phase 2 n8n integration, Phase 3 ComfyUI AI processing
 
 ### API Routes
 - `POST /api/upload-photo` - Photo upload with validation (max 10MB, JPG/PNG/WebP)
 - `GET /api/photos/list` - Retrieve all uploaded photos with metadata
-- `GET /api/photos/serve/[filename]` - Serve uploaded images
+- `PUT /api/photos/update` - Update photo status and metadata
+- `GET /api/photos/serve/[filename]` - Serve uploaded images with security checks
 
 ### Component Architecture
 - **PhotoUploader**: Drag & drop upload with progress, validation, GDPR compliance
@@ -62,9 +67,10 @@ Currently in **Phase 1** with temporary storage:
 - **PhotoModal**: Detailed photo viewer with metadata display
 
 ### Configuration
-- **TypeScript**: Strict mode enabled, path aliases (`@/*` for root)
-- **Next.js**: React strict mode, Shopify Polaris transpilation, unoptimized images for localhost
-- **Vercel**: Custom function timeouts for photo processing endpoints
+- **TypeScript**: Strict mode enabled, path aliases (`@/*` for root), incremental compilation
+- **Next.js**: React strict mode, Shopify Polaris transpilation, unoptimized images for localhost, experimental ESM externals
+- **Prisma**: PostgreSQL datasource with cuid() IDs, comprehensive indexing strategy
+- **Vercel**: Custom function timeouts (upload: 30s, list/serve: 10s) for photo processing endpoints
 
 ### Design System
 - **Primary gradient**: Purple to blue (#667eea → #764ba2)
@@ -82,15 +88,25 @@ Currently in **Phase 1** with temporary storage:
 ### Development Notes
 - Uses Shopify Polaris components for consistent UI
 - Custom CSS with CSS3 gradients and modern effects
-- Photo status workflow: 'pending' → 'processing' → 'done'
-- Temporary storage will be replaced in future phases
+- Photo status workflow: PENDING → PROCESSING → COMPLETED/FAILED (Prisma enum)
+- Multiple utility libraries in `lib/` for modular architecture
 - TypeScript types defined in `types/index.ts` - extend PhotoData interface for new fields
-- File uploads use multer middleware in API routes
+- File uploads use formidable middleware in API routes
 - All image serving goes through `/api/photos/serve/[filename]` for security
+- n8n webhook integration ready for workflow automation
+- Database migration available but currently using hybrid storage
 
 ### Important Implementation Details
 - **File Upload Flow**: Client → `/api/upload-photo` → `StorageService.saveFile()` + `savePhoto()`
-- **Photo Status Updates**: Use `StorageService.updatePhotoStatus(id, status)` 
+- **Photo Status Updates**: Use `StorageService.updatePhotoStatus(id, status)` for in-memory, `/api/photos/update` for persistence
 - **Data Retrieval**: `StorageService.getAllPhotos()` returns sorted by creation date (newest first)
-- **File Validation**: Both client-side (drag/drop) and server-side (multer + manual checks)
+- **File Validation**: Both client-side (drag/drop) and server-side (formidable + manual checks)
 - **Path Handling**: All file paths use `path.join()` to prevent traversal attacks
+- **Database Schema**: Prisma model ready with comprehensive fields including n8n webhook tracking
+- **Library Structure**: Modular design with separate concerns (db.ts, file.ts, security.ts, n8n.ts)
+
+### Development Workflow
+- Always run `npm run type-check` and `npm run lint` before committing
+- Use existing `StorageService` for current operations while Prisma migration is in progress
+- Follow the established photo status enum values (PENDING/PROCESSING/COMPLETED/FAILED)
+- Leverage existing utility libraries in `lib/` for security, file handling, and integrations

@@ -2,12 +2,22 @@ export interface PhotoData {
   id: string;
   customerEmail: string;
   photoUrl: string;
-  status: 'pending' | 'processing' | 'done';
+  originalFilename?: string;
+  fileSize?: number;
+  mimeType?: string;
+  status: 'pending' | 'processing' | 'done' | 'failed';
   createdAt: string;
+  updatedAt?: string;
 }
 
 export interface UploadResponse {
   success: boolean;
   message: string;
-  data?: PhotoData;
+  data?: {
+    id: string;
+    photoUrl: string;
+    status: string;
+    customerEmail: string;
+    createdAt: string;
+  };
 }
