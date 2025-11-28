@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { PhotoTable } from '@/components/PhotoTable';
 import { PhotoModal } from '@/components/PhotoModal';
 import { PhotoData } from '@/types';
+import AdminProtected from '@/components/AdminProtected';
 
 const AdminPhotosPage: React.FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -82,6 +83,12 @@ const AdminPhotosPage: React.FC = () => {
     fetchPhotos();
   }, [fetchPhotos]);
 
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem('adminAuthenticated');
+    localStorage.removeItem('adminToken');
+    window.location.href = '/admin/login';
+  }, []);
+
   const getStatusSummary = () => {
     const summary = photos.reduce((acc, photo) => {
       acc[photo.status] = (acc[photo.status] || 0) + 1;
@@ -105,11 +112,12 @@ const AdminPhotosPage: React.FC = () => {
   if (!mounted) return null;
 
   return (
-    <>
+    <AdminProtected>
       <Head>
         <title>PhotoAI Pro - Admin Dashboard</title>
         <meta name="description" content="Manage customer photo uploads with AI processing" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex, nofollow" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -147,11 +155,20 @@ const AdminPhotosPage: React.FC = () => {
                   <span className="hide-mobile">Refresh</span>
                 </button>
                 <button 
-                  onClick={() => window.location.href = '/'}
+                  onClick={() => window.open('/', '_blank')}
                   className="btn btn-secondary btn-sm"
                 >
                   <span className="hide-mobile">Customer Portal</span>
                   <span className="show-mobile">Portal</span>
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-outline btn-sm flex items-center gap-sm text-red-400 border-red-400 hover:bg-red-400 hover:text-white"
+                >
+                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z"/>
+                  </svg>
+                  <span className="hide-mobile">Logout</span>
                 </button>
               </div>
             </nav>
@@ -497,7 +514,7 @@ const AdminPhotosPage: React.FC = () => {
           onClose={handleModalClose}
         />
       </div>
-    </>
+    </AdminProtected>
   );
 };
 

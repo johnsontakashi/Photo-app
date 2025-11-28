@@ -59,13 +59,13 @@ const CustomerUploadPage: React.FC = () => {
                   <span className="show-mobile">Profile</span>
                 </button>
                 <button 
-                  onClick={() => window.location.href = '/admin/photos'}
-                  className="btn btn-secondary btn-sm"
+                  onClick={() => window.location.href = '/admin/login'}
+                  className="btn btn-outline btn-sm"
                 >
                   <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                    <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
                   </svg>
-                  <span className="hide-mobile">Admin Dashboard</span>
+                  <span className="hide-mobile">Admin Login</span>
                   <span className="show-mobile">Admin</span>
                 </button>
               </div>

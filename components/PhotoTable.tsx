@@ -158,9 +158,9 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
             className="card cursor-pointer transition-all hover:scale-[1.02] bounce-in group"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-md sm:gap-xl">
+            <div className="responsive-photo-row">
               {/* Photo Thumbnail */}
-              <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0">
+              <div className="photo-thumbnail">
                 <img
                   src={photo.photoUrl}
                   alt={`Photo from ${photo.customerEmail}`}
@@ -169,38 +169,38 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
               </div>
 
               {/* Photo Details */}
-              <div className="flex-1 min-w-0 w-full">
-                <div className="flex flex-col sm:flex-row items-start justify-between gap-md sm:gap-lg">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-sm mb-xs">
-                      <h3 className="heading-6 sm:heading-5 text-primary truncate">
-                        {photo.customerEmail}
-                      </h3>
-                      {photo.isVirtualFittingPhoto && (
-                        <div className="virtual-fitting-badge">
-                          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
-                          </svg>
-                          <span>Virtual Fitting</span>
-                        </div>
-                      )}
-                    </div>
-                    <p className="text-secondary text-small mt-xs">
-                      Uploaded {formatDate(photo.createdAt)}
-                    </p>
-                    <p className="text-muted text-xs mt-xs">
-                      ID: {photo.id}
-                    </p>
+              <div className="photo-details">
+                <div className="photo-info">
+                  <div className="photo-header">
+                    <h3 className="customer-email">
+                      {photo.customerEmail}
+                    </h3>
+                    {photo.isVirtualFittingPhoto && (
+                      <div className="virtual-fitting-badge">
+                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                        </svg>
+                        <span className="hide-mobile">Virtual Fitting</span>
+                        <span className="show-mobile">VF</span>
+                      </div>
+                    )}
                   </div>
-
-                  <div className="flex flex-row sm:flex-row items-center gap-sm sm:gap-md w-full sm:w-auto">
-                    {getStatusBadge(photo.status)}
-                    <button className="btn btn-outline btn-sm flex-1 sm:flex-none">
-                      <span className="hide-mobile">View Details</span>
-                      <span className="show-mobile">View</span>
-                    </button>
-                  </div>
+                  <p className="upload-date">
+                    Uploaded {formatDate(photo.createdAt)}
+                  </p>
+                  <p className="photo-id">
+                    ID: {photo.id}
+                  </p>
                 </div>
+
+                <div className="photo-actions">
+                  {getStatusBadge(photo.status)}
+                  <button className="btn btn-outline btn-sm photo-view-btn">
+                    <span className="hide-mobile">View Details</span>
+                    <span className="show-mobile">View</span>
+                  </button>
+                </div>
+              </div>
 
                 {/* Progress Indicator for Processing */}
                 {photo.status === 'processing' && (
