@@ -17,7 +17,8 @@ export const StorageService = {
   savePhoto: async (
     customerEmail: string,
     filename: string,
-    originalName: string
+    originalName: string,
+    isVirtualFittingPhoto: boolean = false
   ): Promise<PhotoData> => {
     const id = uuidv4();
     const photoUrl = `/api/photos/serve/${filename}`;
@@ -28,6 +29,7 @@ export const StorageService = {
       customerEmail,
       photoUrl,
       status: 'pending',
+      isVirtualFittingPhoto,
       createdAt,
     };
 

@@ -3,15 +3,16 @@ import Head from 'next/head';
 import { CustomerProfileForm } from '@/components/CustomerProfileForm';
 import { BodyMeasurementsForm } from '@/components/BodyMeasurementsForm';
 import { useRouter } from 'next/router';
+import { CustomerData, BodyMeasurementsData, SizeRecommendation } from '@/types';
 
 const CustomerProfilePage: React.FC = () => {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [customerEmail, setCustomerEmail] = useState('');
   const [activeTab, setActiveTab] = useState<'profile' | 'measurements' | 'recommendations'>('profile');
-  const [customerData, setCustomerData] = useState(null);
-  const [measurementsData, setMeasurementsData] = useState(null);
-  const [recommendations, setRecommendations] = useState([]);
+  const [customerData, setCustomerData] = useState<CustomerData | null>(null);
+  const [measurementsData, setMeasurementsData] = useState<BodyMeasurementsData | null>(null);
+  const [recommendations, setRecommendations] = useState<SizeRecommendation[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
