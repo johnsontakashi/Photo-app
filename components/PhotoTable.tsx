@@ -211,25 +211,24 @@ export const PhotoTable: React.FC<PhotoTableProps> = ({
             </div>
 
             {/* Progress Indicator for Processing */}
-                {photo.status === 'processing' && (
-                  <div className="mt-md">
-                    <div className="progress-bar h-1 mb-xs">
-                      <div className="progress-fill w-3/4" />
-                    </div>
-                    <p className="text-secondary text-xs">Processing in progress...</p>
-                  </div>
-                )}
-
-                {/* Success Message for Done */}
-                {photo.status === 'done' && (
-                  <div className="mt-md flex items-center gap-sm text-emerald-300">
-                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
-                    </svg>
-                    <span className="text-xs">Processing completed successfully</span>
-                  </div>
-                )}
+            {photo.status === 'processing' && (
+              <div className="mt-md">
+                <div className="progress-bar h-1 mb-xs">
+                  <div className="progress-fill w-3/4" />
+                </div>
+                <p className="text-secondary text-xs">Processing in progress...</p>
               </div>
+            )}
+
+            {/* Success Message for Done */}
+            {photo.status === 'done' && (
+              <div className="mt-md flex items-center gap-sm text-emerald-300">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
+                </svg>
+                <span className="text-xs">Processing completed successfully</span>
+              </div>
+            )}
           </div>
         ))}
 
