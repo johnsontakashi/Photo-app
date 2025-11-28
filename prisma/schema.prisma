@@ -12,6 +12,35 @@ datasource db {
   provider = "postgresql"
 }
 
+model Customer {
+  id            String   @id @default(cuid())
+  email         String   @unique @db.VarChar(255)
+  firstName     String?  @db.VarChar(100)
+  lastName      String?  @db.VarChar(100)
+  phoneNumber   String?  @db.VarChar(20)
+  dateOfBirth   DateTime?
+  shopifyCustomerId String? @db.VarChar(100)
+  
+  // Personal Profile for Style Recommendations
+  age           Int?
+  hobbies       String?  @db.VarChar(500)
+  occupation    String?  @db.VarChar(100)
+  usualSize     String?  @db.VarChar(10)
+  customFields  Json?    // Flexible key-value structure
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  photos        Photo[]
+  bodyMeasurements BodyMeasurements[]
+  shopifyOrders ShopifyOrder[]
+  sizeRecommendations SizeRecommendation[]
+  
+  @@index([email])
+  @@index([shopifyCustomerId])
+}
+
 model Photo {
   id            String   @id @default(cuid())
   customerEmail String   @db.VarChar(255)
@@ -20,14 +49,110 @@ model Photo {
   fileSize      Int?
   mimeType      String?  @db.VarChar(50)
   status        Status   @default(PENDING)
+  isVirtualFittingPhoto Boolean @default(false)
   n8nWebhookSent Boolean @default(false)
   n8nRetries    Int     @default(0)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  
+  // Relations
+  customer      Customer @relation(fields: [customerEmail], references: [email])
 
   @@index([status])
   @@index([createdAt])
   @@index([customerEmail])
+  @@index([isVirtualFittingPhoto])
+}
+
+model BodyMeasurements {
+  id          String   @id @default(cuid())
+  customerEmail String @db.VarChar(255)
+  
+  // Top measurements (in cm)
+  chestWidth    Float?
+  overallWidth  Float?
+  sleeveWidth   Float?
+  topLength     Float?
+  
+  // Bottom measurements (in cm)
+  waist         Float?
+  hip           Float?
+  rise          Float?
+  thighWidth    Float?
+  bottomLength  Float?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  customer      Customer @relation(fields: [customerEmail], references: [email])
+  
+  @@index([customerEmail])
+  @@unique([customerEmail]) // One measurement record per customer
+}
+
+model ShopifyOrder {
+  id              String   @id @default(cuid())
+  shopifyOrderId  String   @unique @db.VarChar(100)
+  customerEmail   String   @db.VarChar(255)
+  orderNumber     String   @db.VarChar(50)
+  totalPrice      Float
+  currency        String   @db.VarChar(10)
+  orderStatus     String   @db.VarChar(50)
+  fulfillmentStatus String? @db.VarChar(50)
+  orderDate       DateTime
+  orderData       Json     // Store full Shopify order data
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  customer        Customer @relation(fields: [customerEmail], references: [email])
+  
+  @@index([customerEmail])
+  @@index([shopifyOrderId])
+  @@index([orderDate])
+}
+
+model SizeChart {
+  id            String   @id @default(cuid())
+  brand         String   @db.VarChar(100)
+  collection    String?  @db.VarChar(100)
+  productType   String   @db.VarChar(50) // "top", "bottom", "dress", etc.
+  
+  // Size definitions (JSON structure for flexibility)
+  sizes         Json     // {"S": {"chestWidth": [85, 90], "waist": [70, 75]}, "M": {...}}
+  
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  recommendations SizeRecommendation[]
+  
+  @@index([brand, collection])
+  @@index([productType])
+}
+
+model SizeRecommendation {
+  id            String   @id @default(cuid())
+  customerEmail String   @db.VarChar(255)
+  sizeChartId   String
+  recommendedSize String @db.VarChar(10)
+  confidence    Float    // 0.0 to 1.0
+  productType   String   @db.VarChar(50)
+  
+  // Measurement context used for recommendation
+  measurementData Json
+  
+  createdAt     DateTime @default(now())
+  
+  // Relations
+  customer      Customer @relation(fields: [customerEmail], references: [email])
+  sizeChart     SizeChart @relation(fields: [sizeChartId], references: [id])
+  
+  @@index([customerEmail])
+  @@index([productType])
 }
 
 enum Status {
