@@ -21,10 +21,16 @@ const CustomerProfilePage: React.FC = () => {
     const email = router.query.email as string || localStorage.getItem('customerEmail') || '';
     setCustomerEmail(email);
     
+    // Set active tab from URL params
+    const tab = router.query.tab as string;
+    if (tab === 'measurements' || tab === 'recommendations') {
+      setActiveTab(tab);
+    }
+    
     if (email) {
       fetchCustomerData(email);
     }
-  }, [router.query.email]);
+  }, [router.query.email, router.query.tab]);
 
   const fetchCustomerData = async (email: string) => {
     setLoading(true);

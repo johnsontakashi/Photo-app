@@ -49,6 +49,16 @@ const CustomerUploadPage: React.FC = () => {
               
               <div className="flex items-center gap-md">
                 <button 
+                  onClick={() => window.location.href = '/customer/profile'}
+                  className="btn btn-primary btn-sm"
+                >
+                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                  </svg>
+                  <span className="hide-mobile">My Profile</span>
+                  <span className="show-mobile">Profile</span>
+                </button>
+                <button 
                   onClick={() => window.location.href = '/admin/photos'}
                   className="btn btn-secondary btn-sm"
                 >
@@ -117,6 +127,72 @@ const CustomerUploadPage: React.FC = () => {
                   <PhotoUploader onUploadSuccess={handleUploadSuccess} />
                 </div>
                 
+              </div>
+            </section>
+
+            {/* New Features Section */}
+            <section className="mb-4xl">
+              <div className="container-lg mx-auto">
+                <div className="text-center mb-2xl">
+                  <h2 className="heading-3 text-primary mb-md">Personalized AI Experience</h2>
+                  <p className="text-large text-secondary">Complete your profile for better size recommendations and virtual fitting</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-xl">
+                  <div className="card text-center slide-up" style={{ animationDelay: '0.1s' }}>
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-lg">
+                      <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                        <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                      </svg>
+                    </div>
+                    <h3 className="heading-6 text-primary mb-sm">Complete Your Profile</h3>
+                    <p className="text-small text-secondary leading-relaxed mb-lg">
+                      Add your personal details and style preferences for personalized recommendations
+                    </p>
+                    <button 
+                      onClick={() => window.location.href = '/customer/profile'}
+                      className="btn btn-primary btn-sm w-full"
+                    >
+                      Manage Profile
+                    </button>
+                  </div>
+
+                  <div className="card text-center slide-up" style={{ animationDelay: '0.2s' }}>
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center mx-auto mb-lg">
+                      <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                        <path d="M12,2A2,2 0 0,1 14,4C14,5.5 13,6.19 13,7H16V10H13V13H16V16H13C13,16.81 14,17.5 14,19A2,2 0 0,1 12,21A2,2 0 0,1 10,19C10,17.5 11,16.81 11,16H8V13H11V10H8V7H11C11,6.19 10,5.5 10,4A2,2 0 0,1 12,2Z"/>
+                      </svg>
+                    </div>
+                    <h3 className="heading-6 text-primary mb-sm">Body Measurements</h3>
+                    <p className="text-small text-secondary leading-relaxed mb-lg">
+                      Add your measurements for accurate size recommendations across all brands
+                    </p>
+                    <button 
+                      onClick={() => window.location.href = '/customer/profile?tab=measurements'}
+                      className="btn btn-primary btn-sm w-full"
+                    >
+                      Add Measurements
+                    </button>
+                  </div>
+
+                  <div className="card text-center slide-up" style={{ animationDelay: '0.3s' }}>
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mx-auto mb-lg">
+                      <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                        <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                      </svg>
+                    </div>
+                    <h3 className="heading-6 text-primary mb-sm">Size Recommendations</h3>
+                    <p className="text-small text-secondary leading-relaxed mb-lg">
+                      Get AI-powered size recommendations based on your measurements and photos
+                    </p>
+                    <button 
+                      onClick={() => window.location.href = '/customer/profile?tab=recommendations'}
+                      className="btn btn-primary btn-sm w-full"
+                    >
+                      View Recommendations
+                    </button>
+                  </div>
+                </div>
               </div>
             </section>
 

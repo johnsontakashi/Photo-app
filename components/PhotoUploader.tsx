@@ -101,16 +101,24 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
       if (result.success) {
         setMessage({
           type: 'success',
-          content: '🎉 Your photo has been uploaded successfully! We\'ll process it and send you the results via email.',
+          content: '🎉 Photo uploaded successfully! Complete your profile for better AI recommendations.',
         });
         
-        // Reset form
+        // Store email for profile page
+        if (customerEmail) {
+          localStorage.setItem('customerEmail', customerEmail);
+        }
+        
+        // Reset form and redirect to profile
         setTimeout(() => {
           setFile(null);
           setPreview(null);
-          setCustomerEmail('');
           setGdprConsent(false);
           setUploadProgress(0);
+          setIsVirtualFittingPhoto(false);
+          
+          // Redirect to profile page
+          window.location.href = '/customer/profile';
         }, 2000);
         
         onUploadSuccess?.(result);

@@ -348,8 +348,138 @@ const AdminPhotosPage: React.FC = () => {
               </div>
             </div> */}
 
+            {/* Customer Management Section */}
+            <div className="admin-section-3 mb-4xl">
+              <div className="card slide-up" style={{ animationDelay: '0.7s' }}>
+                <div className="flex items-center justify-between mb-xl">
+                  <h2 className="heading-4 text-primary">Customer Management</h2>
+                  <div className="flex gap-md">
+                    <button 
+                      onClick={() => window.open('/customer/profile', '_blank')}
+                      className="btn btn-secondary btn-sm"
+                    >
+                      📋 Customer Portal
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="grid md:grid-cols-3 gap-xl">
+                  {/* Customer Stats */}
+                  <div className="customer-stats">
+                    <h3 className="heading-6 text-primary mb-lg">Customer Insights</h3>
+                    <div className="space-y-md">
+                      <div className="flex items-center justify-between">
+                        <span className="text-secondary">Unique Customers</span>
+                        <span className="text-primary font-semibold">
+                          {new Set(photos.map(p => p.customerEmail)).size}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-secondary">Virtual Fitting Users</span>
+                        <span className="text-primary font-semibold">
+                          {new Set(photos.filter(p => p.isVirtualFittingPhoto).map(p => p.customerEmail)).size}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-secondary">Avg Photos/Customer</span>
+                        <span className="text-primary font-semibold">
+                          {photos.length > 0 ? Math.round(photos.length / new Set(photos.map(p => p.customerEmail)).size * 10) / 10 : 0}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Recent Customers */}
+                  <div className="recent-customers">
+                    <h3 className="heading-6 text-primary mb-lg">Recent Customers</h3>
+                    <div className="space-y-md">
+                      {Array.from(new Set(photos.map(p => p.customerEmail)))
+                        .slice(0, 4)
+                        .map((email, index) => {
+                          const customerPhotos = photos.filter(p => p.customerEmail === email);
+                          const hasVirtualFitting = customerPhotos.some(p => p.isVirtualFittingPhoto);
+                          return (
+                            <div key={email} className="flex items-center gap-md p-sm rounded-lg bg-glass-light">
+                              <div className="w-8 h-8 bg-gradient-to-br from-indigo-400 to-purple-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                {email.charAt(0).toUpperCase()}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-primary text-small truncate">{email}</p>
+                                <div className="flex items-center gap-sm">
+                                  <p className="text-muted text-xs">{customerPhotos.length} photos</p>
+                                  {hasVirtualFitting && (
+                                    <div className="flex items-center gap-xs">
+                                      <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24" className="text-indigo-400">
+                                        <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                                      </svg>
+                                      <span className="text-xs text-indigo-400">VF</span>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => window.open(`/customer/profile?email=${encodeURIComponent(email)}`, '_blank')}
+                                className="text-primary hover:text-indigo-400 transition-colors"
+                                title="View customer profile"
+                              >
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                                </svg>
+                              </button>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </div>
+                  
+                  {/* Customer Features */}
+                  <div className="customer-features">
+                    <h3 className="heading-6 text-primary mb-lg">Available Features</h3>
+                    <div className="space-y-md">
+                      <div className="feature-item">
+                        <div className="flex items-center gap-sm mb-sm">
+                          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" className="text-emerald-400">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
+                          </svg>
+                          <span className="text-primary font-medium">Profile Management</span>
+                        </div>
+                        <p className="text-secondary text-xs">Name, contact info, style preferences</p>
+                      </div>
+                      <div className="feature-item">
+                        <div className="flex items-center gap-sm mb-sm">
+                          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" className="text-emerald-400">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
+                          </svg>
+                          <span className="text-primary font-medium">Body Measurements</span>
+                        </div>
+                        <p className="text-secondary text-xs">Top & bottom measurements in cm</p>
+                      </div>
+                      <div className="feature-item">
+                        <div className="flex items-center gap-sm mb-sm">
+                          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" className="text-emerald-400">
+                            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
+                          </svg>
+                          <span className="text-primary font-medium">Size Recommendations</span>
+                        </div>
+                        <p className="text-secondary text-xs">AI-powered size matching</p>
+                      </div>
+                      <div className="feature-item">
+                        <div className="flex items-center gap-sm mb-sm">
+                          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" className="text-yellow-400">
+                            <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                          </svg>
+                          <span className="text-primary font-medium">Shopify Integration</span>
+                        </div>
+                        <p className="text-secondary text-xs">Order history & customer sync</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Photos Table */}
-            <div className="slide-up" style={{ animationDelay: '0.8s' }}>
+            <div className="slide-up" style={{ animationDelay: '0.9s' }}>
               <PhotoTable
                 photos={photos}
                 loading={loading}

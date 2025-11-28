@@ -87,7 +87,12 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                 <Text variant="headingMd" as="h3">
                   Customer Information
                 </Text>
-                {getStatusBadge(photo.status)}
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  {photo.isVirtualFittingPhoto && (
+                    <Badge status="info">Virtual Fitting</Badge>
+                  )}
+                  {getStatusBadge(photo.status)}
+                </div>
               </Stack>
 
               <Stack vertical spacing="extraTight">
@@ -138,17 +143,56 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                     </Stack>
                   </Stack.Item>
                 </Stack>
+
+                {photo.isVirtualFittingPhoto && (
+                  <Stack>
+                    <Stack.Item fill>
+                      <div style={{ 
+                        padding: '12px', 
+                        backgroundColor: '#e8f5ff', 
+                        borderRadius: '8px',
+                        border: '1px solid #0066cc'
+                      }}>
+                        <Text variant="bodyMd" fontWeight="semibold" as="p" color="success">
+                          ✨ Virtual Fitting Photo
+                        </Text>
+                        <Text variant="bodyMd" as="p" color="subdued">
+                          This photo is optimized for AI-powered virtual fitting and size recommendations.
+                        </Text>
+                      </div>
+                    </Stack.Item>
+                  </Stack>
+                )}
               </Stack>
             </Stack>
           </Card>
 
-          {/* Action Information */}
+          {/* Customer Actions */}
           <Card sectioned>
             <Stack vertical spacing="tight">
               <Text variant="headingMd" as="h3">
-                Next Steps
+                Customer Management
               </Text>
               <Stack vertical spacing="extraTight">
+                <div style={{ marginBottom: '12px' }}>
+                  <button
+                    onClick={() => window.open(`/customer/profile?email=${encodeURIComponent(photo.customerEmail)}`, '_blank')}
+                    style={{
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      padding: '8px 16px',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      cursor: 'pointer',
+                      width: '100%'
+                    }}
+                  >
+                    📋 View Customer Profile & Measurements
+                  </button>
+                </div>
+                
                 {photo.status === 'pending' && (
                   <Text variant="bodyMd" as="p">
                     This photo is pending processing. It will be automatically processed in Phase 2 of the application.
