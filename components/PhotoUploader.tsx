@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { UploadResponse } from '@/types';
+import { VideoModal, FloatingVideoButton } from './VideoModal';
 
 const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -18,6 +19,8 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
   const [uploadProgress, setUploadProgress] = useState(0);
   const [gdprConsent, setGdprConsent] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [isVirtualFittingPhoto, setIsVirtualFittingPhoto] = useState(false);
+  const [showPhotoVideoModal, setShowPhotoVideoModal] = useState(false);
   const [message, setMessage] = useState<{
     type: 'success' | 'error';
     content: string;
@@ -86,6 +89,7 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
       const formData = new FormData();
       formData.append('photo', file);
       formData.append('customerEmail', customerEmail);
+      formData.append('isVirtualFittingPhoto', isVirtualFittingPhoto.toString());
 
       const response = await fetch('/api/upload-photo', {
         method: 'POST',
@@ -312,8 +316,58 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
               </div>
             )}
           </div>
+          
+          {/* Photo Help Video Button */}
+          <div className="pro-help-video">
+            <FloatingVideoButton
+              onClick={() => setShowPhotoVideoModal(true)}
+              label="How to take your photo"
+              icon={
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                </svg>
+              }
+              position="inline"
+            />
+          </div>
         </div>
 
+        {/* Virtual Fitting Photo Option */}
+        <div className="pro-field">
+          <div className="pro-virtual-fitting">
+            <label className="pro-virtual-fitting-label">
+              <input
+                type="checkbox"
+                checked={isVirtualFittingPhoto}
+                onChange={(e) => setIsVirtualFittingPhoto(e.target.checked)}
+                disabled={loading}
+                className="pro-virtual-fitting-input"
+              />
+              <div className="pro-virtual-fitting-checkbox">
+                {isVirtualFittingPhoto && (
+                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
+                  </svg>
+                )}
+              </div>
+              <div className="pro-virtual-fitting-content">
+                <span className="pro-virtual-fitting-text">
+                  This photo is for Virtual Fitting
+                </span>
+                <div className="pro-virtual-fitting-badge">
+                  <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                  </svg>
+                  <span>AI-Powered</span>
+                </div>
+              </div>
+            </label>
+            <p className="pro-virtual-fitting-description">
+              Enable this for photos you want to use with our AI virtual fitting feature. 
+              This helps our AI provide more accurate size recommendations.
+            </p>
+          </div>
+        </div>
 
         {/* Professional Progress Bar */}
         {loading && (
@@ -384,7 +438,16 @@ export const PhotoUploader: React.FC<PhotoUploaderProps> = ({
             </div>
           )}
         </button>
-1      </div>
+      </div>
+
+      {/* Photo Help Video Modal */}
+      <VideoModal
+        isOpen={showPhotoVideoModal}
+        onClose={() => setShowPhotoVideoModal(false)}
+        videoUrl={process.env.NEXT_PUBLIC_PHOTO_GUIDE_VIDEO_URL}
+        title="How to Take Your Photo"
+        description="Learn the best practices for taking photos that work great with our AI virtual fitting technology."
+      />
     </div>
   );
 };

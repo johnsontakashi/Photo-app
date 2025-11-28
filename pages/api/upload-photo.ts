@@ -96,6 +96,13 @@ export default async function handler(
       });
     }
 
+    // Extract virtual fitting flag
+    const isVirtualFittingPhotoRaw = Array.isArray(fields.isVirtualFittingPhoto) 
+      ? fields.isVirtualFittingPhoto[0] 
+      : fields.isVirtualFittingPhoto;
+    
+    const isVirtualFittingPhoto = isVirtualFittingPhotoRaw === 'true';
+
     // Extract and validate file
     const photoFile = Array.isArray(files.photo) ? files.photo[0] : files.photo;
 
@@ -148,6 +155,7 @@ export default async function handler(
       originalName: photoFile.originalFilename || undefined,
       fileSize: photoFile.size,
       mimeType: photoFile.mimetype || undefined,
+      isVirtualFittingPhoto,
     };
 
     const savedPhoto = await db.createPhotoRecord(photoData);
